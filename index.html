@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Rural Exam Boost</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+
+body{
+font-family:Arial, sans-serif;
+background:linear-gradient(135deg,#1e3c72,#2a5298);
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+margin:0;
+}
+
+.container{
+background:white;
+width:95%;
+max-width:520px;
+padding:25px;
+border-radius:12px;
+box-shadow:0 10px 30px rgba(0,0,0,0.2);
+text-align:center;
+}
+
+h1{
+color:#2a5298;
+margin-bottom:5px;
+}
+
+.details{
+font-size:13px;
+color:gray;
+line-height:1.5;
+margin-bottom:15px;
+}
+
+button{
+padding:12px;
+margin:8px 0;
+width:100%;
+border:none;
+border-radius:8px;
+font-size:15px;
+cursor:pointer;
+transition:0.2s;
+}
+
+.primary{
+background:#2a5298;
+color:white;
+}
+
+.primary:hover{
+background:#1e3c72;
+}
+
+.option{
+background:#f1f3f6;
+border:1px solid #ddd;
+}
+
+.option.selected{
+background:#2a5298;
+color:white;
+}
+
+.hidden{
+display:none;
+}
+
+.progress-bar{
+height:10px;
+background:#ddd;
+border-radius:5px;
+overflow:hidden;
+margin:10px 0;
+}
+
+.progress{
+height:100%;
+width:0%;
+background:#2a5298;
+}
+
+.timer{
+font-weight:bold;
+color:#d9534f;
+}
+
+.counter{
+font-size:13px;
+color:gray;
+}
+
+.certificate{
+background:#f4f8ff;
+padding:15px;
+border-radius:8px;
+margin-top:10px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Rural Exam Boost</h1>
+
+<div class="details">
+Developed by: <b>Abdulkarim Adamu Mohammed (3MTT)</b><br>
+Matric No: FE/23/13820118<br>
+Email: azzabaab@gmail.com<br>
+Phone: 09039042932
+</div>
+
+<p id="homeText">Low‑data WAEC/NECO practice platform for rural students.</p>
+
+<div id="subjectSection">
+<button class="primary" onclick="startQuiz('math')">Mathematics</button>
+<button class="primary" onclick="startQuiz('english')">English</button>
+</div>
+
+<div id="quizSection" class="hidden">
+
+<div class="timer">Time Left: <span id="time">30</span>s</div>
+
+<div class="counter" id="counter"></div>
+
+<div class="progress-bar">
+<div class="progress" id="progress"></div>
+</div>
+
+<h3 id="question"></h3>
+
+<div id="options"></div>
+
+<button class="primary" onclick="nextQuestion()">Next</button>
+
+</div>
+
+<div id="resultSection" class="hidden">
+
+<h2>Your Result</h2>
+
+<p id="score"></p>
+
+<div id="certificate" class="certificate hidden"></div>
+
+<button class="primary" onclick="location.reload()">Restart</button>
+
+</div>
+
+</div>
+
+<script>
+
+const questionBank = {
+
+math:[
+{question:"5 × 6 = ?",options:["11","30","25","56"],answer:"30"},
+{question:"12 ÷ 3 = ?",options:["2","4","6","3"],answer:"4"},
+{question:"9² = ?",options:["18","81","72","27"],answer:"81"}
+],
+
+english:[
+{question:"Synonym of Happy?",options:["Sad","Joyful","Angry","Cold"],answer:"Joyful"},
+{question:"Opposite of Hot?",options:["Warm","Cold","Boil","Heat"],answer:"Cold"},
+{question:"Correct spelling?",options:["Recieve","Receive","Recive","Receve"],answer:"Receive"}
+]
+
+}
+
+let questions=[]
+let currentQuestion=0
+let score=0
+let selectedAnswer=null
+let timer
+let timeLeft=30
+
+function startQuiz(subject){
+
+questions=questionBank[subject]
+
+document.getElementById("subjectSection").classList.add("hidden")
+document.getElementById("homeText").classList.add("hidden")
+document.getElementById("quizSection").classList.remove("hidden")
+
+currentQuestion=0
+score=0
+timeLeft=30
+
+startTimer()
+loadQuestion()
+
+}
+
+function loadQuestion(){
+
+const q=questions[currentQuestion]
+
+document.getElementById("question").textContent=q.question
+
+document.getElementById("counter").textContent=
+"Question "+(currentQuestion+1)+" of "+questions.length
+
+const optionsDiv=document.getElementById("options")
+
+optionsDiv.innerHTML=""
+
+q.options.forEach(option=>{
+
+const btn=document.createElement("button")
+
+btn.textContent=option
+
+btn.classList.add("option")
+
+btn.onclick=()=>{
+
+selectedAnswer=option
+
+document.querySelectorAll(".option").forEach(b=>b.classList.remove("selected"))
+
+btn.classList.add("selected")
+
+}
+
+optionsDiv.appendChild(btn)
+
+})
+
+updateProgress()
+
+}
+
+function nextQuestion(){
+
+if(!selectedAnswer) return
+
+if(selectedAnswer===questions[currentQuestion].answer){
+
+score++
+
+}
+
+selectedAnswer=null
+
+currentQuestion++
+
+if(currentQuestion<questions.length){
+
+loadQuestion()
+
+}else{
+
+showResult()
+
+}
+
+}
+
+function showResult(){
+
+clearInterval(timer)
+
+document.getElementById("quizSection").classList.add("hidden")
+
+document.getElementById("resultSection").classList.remove("hidden")
+
+let percentage=Math.round((score/questions.length)*100)
+
+document.getElementById("score").textContent=
+"You scored "+score+" / "+questions.length+" ("+percentage+"%)"
+
+if(percentage>=70){
+
+const cert=document.getElementById("certificate")
+
+cert.classList.remove("hidden")
+
+cert.innerHTML=
+
+"🎓 Certificate of Completion<br><br>"+
+"You successfully completed Rural Exam Boost practice.<br><br>"+
+"Developed by Abdulkarim Adamu Mohammed"
+
+}
+
+}
+
+function updateProgress(){
+
+let percent=(currentQuestion/questions.length)*100
+
+document.getElementById("progress").style.width=percent+"%"
+
+}
+
+function startTimer(){
+
+document.getElementById("time").textContent=timeLeft
+
+timer=setInterval(()=>{
+
+timeLeft--
+
+document.getElementById("time").textContent=timeLeft
+
+if(timeLeft<=0){
+
+showResult()
+
+}
+
+},1000)
+
+}
+
+</script>
+
+</body>
+</html>
