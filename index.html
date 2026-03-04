@@ -97,11 +97,12 @@ font-size:13px;
 color:gray;
 }
 
-.certificate{
-background:#f4f8ff;
-padding:15px;
-border-radius:8px;
-margin-top:10px;
+input{
+padding:10px;
+width:90%;
+margin:10px 0;
+border-radius:6px;
+border:1px solid #ccc;
 }
 
 </style>
@@ -115,7 +116,7 @@ margin-top:10px;
 
 <div class="details">
 Developed by: <b>Abdulkarim Adamu Mohammed (3MTT)</b><br>
-Matric No: FE/23/13820118<br>
+Fellow ID: FE/23/13820118<br>
 Email: azzabaab@gmail.com<br>
 Phone: 09039042932
 </div>
@@ -151,9 +152,13 @@ Phone: 09039042932
 
 <p id="score"></p>
 
-<div id="certificate" class="certificate hidden"></div>
+<input id="studentName" placeholder="Enter your name for certificate">
+
+<button class="primary" onclick="downloadCertificate()">Download Certificate</button>
 
 <button class="primary" onclick="location.reload()">Restart</button>
+
+<canvas id="certificateCanvas" width="800" height="500" class="hidden"></canvas>
 
 </div>
 
@@ -279,20 +284,6 @@ let percentage=Math.round((score/questions.length)*100)
 document.getElementById("score").textContent=
 "You scored "+score+" / "+questions.length+" ("+percentage+"%)"
 
-if(percentage>=70){
-
-const cert=document.getElementById("certificate")
-
-cert.classList.remove("hidden")
-
-cert.innerHTML=
-
-"🎓 Certificate of Completion<br><br>"+
-"You successfully completed Rural Exam Boost practice.<br><br>"+
-"Developed by Abdulkarim Adamu Mohammed"
-
-}
-
 }
 
 function updateProgress(){
@@ -320,6 +311,47 @@ showResult()
 }
 
 },1000)
+
+}
+
+function downloadCertificate(){
+
+const name=document.getElementById("studentName").value
+if(!name) return alert("Enter your name first")
+
+const canvas=document.getElementById("certificateCanvas")
+const ctx=canvas.getContext("2d")
+
+ctx.fillStyle="#ffffff"
+ctx.fillRect(0,0,800,500)
+
+ctx.strokeStyle="#d4af37"
+ctx.lineWidth=10
+ctx.strokeRect(20,20,760,460)
+
+ctx.fillStyle="#2a5298"
+ctx.font="bold 40px Georgia"
+ctx.textAlign="center"
+ctx.fillText("Certificate of Achievement",400,120)
+
+ctx.fillStyle="#000"
+ctx.font="22px Arial"
+ctx.fillText("This certifies that",400,200)
+
+ctx.font="bold 34px Arial"
+ctx.fillText(name,400,260)
+
+ctx.font="20px Arial"
+ctx.fillText("successfully completed the",400,320)
+ctx.fillText("Rural Exam Boost Practice Test",400,350)
+
+ctx.font="18px Arial"
+ctx.fillText("Developed by Abdulkarim Adamu Mohammed",400,420)
+
+const link=document.createElement("a")
+link.download="Rural_Exam_Boost_Certificate.png"
+link.href=canvas.toDataURL()
+link.click()
 
 }
 
