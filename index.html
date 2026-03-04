@@ -8,34 +8,57 @@
 <style>
 
 body{
-font-family:Arial, sans-serif;
-background:linear-gradient(135deg,#1e3c72,#2a5298);
-display:flex;
-justify-content:center;
-align-items:center;
-height:100vh;
+font-family:Arial;
+background:#f4f6fb;
 margin:0;
 }
 
-.container{
-background:white;
-width:95%;
-max-width:520px;
-padding:25px;
-border-radius:12px;
-box-shadow:0 10px 30px rgba(0,0,0,0.2);
+/* LANDING PAGE */
+
+#landing{
 text-align:center;
+padding:50px 20px;
+max-width:700px;
+margin:auto;
 }
 
-h1{
+#landing h1{
 color:#2a5298;
-margin-bottom:5px;
+font-size:40px;
 }
 
-.details{
-font-size:13px;
-color:gray;
-line-height:1.5;
+.pitch{
+background:white;
+padding:25px;
+border-radius:10px;
+margin-top:25px;
+box-shadow:0 5px 15px rgba(0,0,0,0.08);
+}
+
+.launch-btn{
+margin-top:20px;
+padding:14px 25px;
+background:#2a5298;
+color:white;
+border:none;
+border-radius:8px;
+font-size:16px;
+cursor:pointer;
+}
+
+/* APP */
+
+.container{
+max-width:600px;
+margin:auto;
+padding:25px;
+}
+
+.header{
+background:#2a5298;
+color:white;
+padding:15px;
+border-radius:8px;
 margin-bottom:15px;
 }
 
@@ -45,23 +68,16 @@ margin:8px 0;
 width:100%;
 border:none;
 border-radius:8px;
-font-size:15px;
-cursor:pointer;
-transition:0.2s;
-}
-
-.primary{
 background:#2a5298;
 color:white;
-}
-
-.primary:hover{
-background:#1e3c72;
+font-size:15px;
+cursor:pointer;
 }
 
 .option{
 background:#f1f3f6;
 border:1px solid #ddd;
+color:black;
 }
 
 .option.selected{
@@ -99,10 +115,17 @@ color:gray;
 
 input{
 padding:10px;
-width:90%;
+width:95%;
 margin:10px 0;
 border-radius:6px;
 border:1px solid #ccc;
+}
+
+footer{
+text-align:center;
+font-size:12px;
+margin-top:20px;
+color:gray;
 }
 
 </style>
@@ -110,27 +133,83 @@ border:1px solid #ccc;
 
 <body>
 
-<div class="container">
+<!-- LANDING PAGE -->
 
-<h1>Rural Exam Boost</h1>
+<div id="landing">
 
-<div class="details">
-Developed by: <b>Abdulkarim Adamu Mohammed (3MTT)</b><br>
-Fellow ID: FE/23/13820118<br>
-Email: azzabaab@gmail.com<br>
-Phone: 09039042932
+<h1>Rural Exam Boost 🎓</h1>
+
+<p style="font-size:18px;color:#444;">
+Low‑Data Exam Practice Platform
+</p>
+
+<div class="pitch">
+
+<h3>Problem</h3>
+
+<p>
+Many rural students lack affordable and accessible
+tools to practice for exams like WAEC and NECO.
+</p>
+
+<h3>Solution</h3>
+
+<p>
+Rural Exam Boost provides a lightweight platform
+where students can practice questions,
+track progress, and receive instant results.
+</p>
+
+<h3>Impact</h3>
+
+<p>
+Supports underserved students,
+improves exam preparation,
+and promotes equal access to education.
+</p>
+
+<button class="launch-btn" onclick="startApp()">
+Start Practice
+</button>
+
 </div>
 
-<p id="homeText">Low‑data WAEC/NECO practice platform for rural students.</p>
+</div>
+
+<!-- APP -->
+
+<div id="app" style="display:none">
+
+<div class="container">
+
+<div class="header">
+
+<h2>Rural Exam Boost</h2>
+
+<p style="font-size:13px">
+Developed by: <b>Abdulkarim Adamu Mohammed (3MTT)</b><br>
+Matric No: FE/23/13820118<br>
+Email: azzabaab@gmail.com<br>
+Phone: 09039042932
+</p>
+
+</div>
 
 <div id="subjectSection">
-<button class="primary" onclick="startQuiz('math')">Mathematics</button>
-<button class="primary" onclick="startQuiz('english')">English</button>
+
+<h3>Select Subject</h3>
+
+<button onclick="startQuiz('math')">Mathematics</button>
+
+<button onclick="startQuiz('english')">English</button>
+
 </div>
 
 <div id="quizSection" class="hidden">
 
-<div class="timer">Time Left: <span id="time">30</span>s</div>
+<div class="timer">
+Time Left: <span id="time">30</span>s
+</div>
 
 <div class="counter" id="counter"></div>
 
@@ -142,7 +221,7 @@ Phone: 09039042932
 
 <div id="options"></div>
 
-<button class="primary" onclick="nextQuestion()">Next</button>
+<button onclick="nextQuestion()">Next</button>
 
 </div>
 
@@ -154,11 +233,19 @@ Phone: 09039042932
 
 <input id="studentName" placeholder="Enter your name for certificate">
 
-<button class="primary" onclick="downloadCertificate()">Download Certificate</button>
+<button onclick="downloadCertificate()">
+Download Certificate
+</button>
 
-<button class="primary" onclick="location.reload()">Restart</button>
+<button onclick="location.reload()">Restart</button>
 
-<canvas id="certificateCanvas" width="800" height="500" class="hidden"></canvas>
+<canvas id="certificateCanvas" width="800" height="500" style="display:none"></canvas>
+
+</div>
+
+<footer>
+© 2026 Rural Exam Boost
+</footer>
 
 </div>
 
@@ -166,18 +253,27 @@ Phone: 09039042932
 
 <script>
 
+/* Landing */
+
+function startApp(){
+document.getElementById("landing").style.display="none"
+document.getElementById("app").style.display="block"
+}
+
+/* Questions */
+
 const questionBank = {
 
 math:[
 {question:"5 × 6 = ?",options:["11","30","25","56"],answer:"30"},
 {question:"12 ÷ 3 = ?",options:["2","4","6","3"],answer:"4"},
-{question:"9² = ?",options:["18","81","72","27"],answer:"81"}
+{question:"9² = ?",options:["18","81","27","72"],answer:"81"}
 ],
 
 english:[
 {question:"Synonym of Happy?",options:["Sad","Joyful","Angry","Cold"],answer:"Joyful"},
-{question:"Opposite of Hot?",options:["Warm","Cold","Boil","Heat"],answer:"Cold"},
-{question:"Correct spelling?",options:["Recieve","Receive","Recive","Receve"],answer:"Receive"}
+{question:"Opposite of Hot?",options:["Warm","Cold","Heat","Boil"],answer:"Cold"},
+{question:"Correct spelling?",options:["Recieve","Receive","Receve","Recive"],answer:"Receive"}
 ]
 
 }
@@ -193,8 +289,7 @@ function startQuiz(subject){
 
 questions=questionBank[subject]
 
-document.getElementById("subjectSection").classList.add("hidden")
-document.getElementById("homeText").classList.add("hidden")
+document.getElementById("subjectSection").style.display="none"
 document.getElementById("quizSection").classList.remove("hidden")
 
 currentQuestion=0
@@ -216,7 +311,6 @@ document.getElementById("counter").textContent=
 "Question "+(currentQuestion+1)+" of "+questions.length
 
 const optionsDiv=document.getElementById("options")
-
 optionsDiv.innerHTML=""
 
 q.options.forEach(option=>{
@@ -224,7 +318,6 @@ q.options.forEach(option=>{
 const btn=document.createElement("button")
 
 btn.textContent=option
-
 btn.classList.add("option")
 
 btn.onclick=()=>{
@@ -250,23 +343,16 @@ function nextQuestion(){
 if(!selectedAnswer) return
 
 if(selectedAnswer===questions[currentQuestion].answer){
-
 score++
-
 }
 
 selectedAnswer=null
-
 currentQuestion++
 
 if(currentQuestion<questions.length){
-
 loadQuestion()
-
 }else{
-
 showResult()
-
 }
 
 }
@@ -305,27 +391,31 @@ timeLeft--
 document.getElementById("time").textContent=timeLeft
 
 if(timeLeft<=0){
-
 showResult()
-
 }
 
 },1000)
 
 }
 
+/* Certificate */
+
 function downloadCertificate(){
 
 const name=document.getElementById("studentName").value
-if(!name) return alert("Enter your name first")
+
+if(!name){
+alert("Enter your name first")
+return
+}
 
 const canvas=document.getElementById("certificateCanvas")
 const ctx=canvas.getContext("2d")
 
-ctx.fillStyle="#ffffff"
+ctx.fillStyle="#fff"
 ctx.fillRect(0,0,800,500)
 
-ctx.strokeStyle="#d4af37"
+ctx.strokeStyle="#2a5298"
 ctx.lineWidth=10
 ctx.strokeRect(20,20,760,460)
 
@@ -335,18 +425,17 @@ ctx.textAlign="center"
 ctx.fillText("Certificate of Achievement",400,120)
 
 ctx.fillStyle="#000"
-ctx.font="22px Arial"
+ctx.font="24px Arial"
 ctx.fillText("This certifies that",400,200)
 
 ctx.font="bold 34px Arial"
 ctx.fillText(name,400,260)
 
 ctx.font="20px Arial"
-ctx.fillText("successfully completed the",400,320)
-ctx.fillText("Rural Exam Boost Practice Test",400,350)
+ctx.fillText("successfully completed Rural Exam Boost",400,320)
 
 ctx.font="18px Arial"
-ctx.fillText("Developed by Abdulkarim Adamu Mohammed",400,420)
+ctx.fillText("Developed by Abdulkarim Adamu Mohammed",400,400)
 
 const link=document.createElement("a")
 link.download="Rural_Exam_Boost_Certificate.png"
