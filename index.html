@@ -1,450 +1,476 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Rural Exam Boost</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rural Exam Boost</title>
+  <style>
+    *{
+      box-sizing:border-box;
+    }
 
-<style>
+    body{
+      font-family:Arial, sans-serif;
+      background:#f4f7fb;
+      margin:0;
+      color:#222;
+    }
 
-body{
-font-family:Arial;
-background:#f4f6fb;
-margin:0;
-}
+    #landing{
+      text-align:center;
+      padding:50px 20px;
+      max-width:800px;
+      margin:auto;
+    }
 
-/* LANDING PAGE */
+    #landing h1{
+      color:#1f4e79;
+      font-size:40px;
+      margin-bottom:10px;
+    }
 
-#landing{
-text-align:center;
-padding:50px 20px;
-max-width:700px;
-margin:auto;
-}
+    .pitch-box{
+      background:#fff;
+      padding:25px;
+      border-radius:12px;
+      box-shadow:0 4px 14px rgba(0,0,0,0.08);
+      margin-top:20px;
+    }
 
-#landing h1{
-color:#2a5298;
-font-size:40px;
-}
+    .launch-btn{
+      margin-top:20px;
+      padding:14px 22px;
+      background:#1f4e79;
+      color:#fff;
+      border:none;
+      border-radius:8px;
+      cursor:pointer;
+      font-size:16px;
+    }
 
-.pitch{
-background:white;
-padding:25px;
-border-radius:10px;
-margin-top:25px;
-box-shadow:0 5px 15px rgba(0,0,0,0.08);
-}
+    #app{
+      display:none;
+    }
 
-.launch-btn{
-margin-top:20px;
-padding:14px 25px;
-background:#2a5298;
-color:white;
-border:none;
-border-radius:8px;
-font-size:16px;
-cursor:pointer;
-}
+    .container{
+      max-width:760px;
+      margin:30px auto;
+      padding:20px;
+    }
 
-/* APP */
+    .header{
+      background:#1f4e79;
+      color:white;
+      padding:18px;
+      border-radius:12px;
+      margin-bottom:20px;
+    }
 
-.container{
-max-width:600px;
-margin:auto;
-padding:25px;
-}
+    .card{
+      background:white;
+      padding:20px;
+      border-radius:12px;
+      box-shadow:0 4px 12px rgba(0,0,0,0.06);
+      margin-bottom:20px;
+    }
 
-.header{
-background:#2a5298;
-color:white;
-padding:15px;
-border-radius:8px;
-margin-bottom:15px;
-}
+    h2,h3{
+      margin-top:0;
+    }
 
-button{
-padding:12px;
-margin:8px 0;
-width:100%;
-border:none;
-border-radius:8px;
-background:#2a5298;
-color:white;
-font-size:15px;
-cursor:pointer;
-}
+    button{
+      width:100%;
+      padding:12px;
+      border:none;
+      border-radius:8px;
+      background:#1f4e79;
+      color:white;
+      cursor:pointer;
+      font-size:15px;
+      margin-top:10px;
+    }
 
-.option{
-background:#f1f3f6;
-border:1px solid #ddd;
-color:black;
-}
+    button:hover{
+      opacity:0.95;
+    }
 
-.option.selected{
-background:#2a5298;
-color:white;
-}
+    .subject-btn{
+      margin-bottom:10px;
+    }
 
-.hidden{
-display:none;
-}
+    .option{
+      background:#eef3f8;
+      color:#111;
+      border:1px solid #d7e0ea;
+    }
 
-.progress-bar{
-height:10px;
-background:#ddd;
-border-radius:5px;
-overflow:hidden;
-margin:10px 0;
-}
+    .option.selected{
+      background:#1f4e79;
+      color:white;
+    }
 
-.progress{
-height:100%;
-width:0%;
-background:#2a5298;
-}
+    .hidden{
+      display:none;
+    }
 
-.timer{
-font-weight:bold;
-color:#d9534f;
-}
+    .topbar{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-bottom:10px;
+      font-size:14px;
+      color:#444;
+    }
 
-.counter{
-font-size:13px;
-color:gray;
-}
+    .progress-bar{
+      width:100%;
+      height:10px;
+      background:#dde6f0;
+      border-radius:999px;
+      overflow:hidden;
+      margin:15px 0;
+    }
 
-input{
-padding:10px;
-width:95%;
-margin:10px 0;
-border-radius:6px;
-border:1px solid #ccc;
-}
+    .progress{
+      height:100%;
+      width:0%;
+      background:#28a745;
+      transition:width 0.3s ease;
+    }
 
-footer{
-text-align:center;
-font-size:12px;
-margin-top:20px;
-color:gray;
-}
+    #question{
+      font-size:20px;
+      margin-bottom:15px;
+    }
 
-</style>
+    input{
+      width:100%;
+      padding:12px;
+      border:1px solid #ccc;
+      border-radius:8px;
+      margin-top:10px;
+      margin-bottom:10px;
+    }
+
+    .result-box{
+      text-align:center;
+    }
+
+    footer{
+      text-align:center;
+      color:#666;
+      font-size:12px;
+      margin-top:15px;
+    }
+  </style>
 </head>
-
 <body>
 
-<!-- LANDING PAGE -->
-
-<div id="landing">
-
-<h1>Rural Exam Boost 🎓</h1>
-
-<p style="font-size:18px;color:#444;">
-Low‑Data Exam Practice Platform
-</p>
-
-<div class="pitch">
-
-<h3>Problem</h3>
-
-<p>
-Many rural students lack affordable and accessible
-tools to practice for exams like WAEC and NECO.
-</p>
-
-<h3>Solution</h3>
-
-<p>
-Rural Exam Boost provides a lightweight platform
-where students can practice questions,
-track progress, and receive instant results.
-</p>
-
-<h3>Impact</h3>
-
-<p>
-Supports underserved students,
-improves exam preparation,
-and promotes equal access to education.
-</p>
-
-<button class="launch-btn" onclick="startApp()">
-Start Practice
-</button>
-
-</div>
-
-</div>
-
-<!-- APP -->
-
-<div id="app" style="display:none">
-
-<div class="container">
-
-<div class="header">
-
-<h2>Rural Exam Boost</h2>
-
-<p style="font-size:13px">
-Developed by: <b>Abdulkarim Adamu Mohammed (3MTT)</b><br>
-Matric No: FE/23/13820118<br>
-Email: azzabaab@gmail.com<br>
-Phone: 09039042932
-</p>
-
-</div>
-
-<div id="subjectSection">
-
-<h3>Select Subject</h3>
-
-<button onclick="startQuiz('math')">Mathematics</button>
-
-<button onclick="startQuiz('english')">English</button>
-
-</div>
-
-<div id="quizSection" class="hidden">
-
-<div class="timer">
-Time Left: <span id="time">30</span>s
-</div>
-
-<div class="counter" id="counter"></div>
-
-<div class="progress-bar">
-<div class="progress" id="progress"></div>
-</div>
-
-<h3 id="question"></h3>
-
-<div id="options"></div>
-
-<button onclick="nextQuestion()">Next</button>
-
-</div>
-
-<div id="resultSection" class="hidden">
-
-<h2>Your Result</h2>
-
-<p id="score"></p>
-
-<input id="studentName" placeholder="Enter your name for certificate">
-
-<button onclick="downloadCertificate()">
-Download Certificate
-</button>
-
-<button onclick="location.reload()">Restart</button>
-
-<canvas id="certificateCanvas" width="800" height="500" style="display:none"></canvas>
-
-</div>
-
-<footer>
-© 2026 Rural Exam Boost
-</footer>
-
-</div>
-
-</div>
-
-<script>
-
-/* Landing */
-
-function startApp(){
-document.getElementById("landing").style.display="none"
-document.getElementById("app").style.display="block"
-}
-
-/* Questions */
-
-const questionBank = {
-
-math:[
-{question:"5 × 6 = ?",options:["11","30","25","56"],answer:"30"},
-{question:"12 ÷ 3 = ?",options:["2","4","6","3"],answer:"4"},
-{question:"9² = ?",options:["18","81","27","72"],answer:"81"}
-],
-
-english:[
-{question:"Synonym of Happy?",options:["Sad","Joyful","Angry","Cold"],answer:"Joyful"},
-{question:"Opposite of Hot?",options:["Warm","Cold","Heat","Boil"],answer:"Cold"},
-{question:"Correct spelling?",options:["Recieve","Receive","Receve","Recive"],answer:"Receive"}
-]
-
-}
-
-let questions=[]
-let currentQuestion=0
-let score=0
-let selectedAnswer=null
-let timer
-let timeLeft=30
-
-function startQuiz(subject){
-
-questions=questionBank[subject]
-
-document.getElementById("subjectSection").style.display="none"
-document.getElementById("quizSection").classList.remove("hidden")
-
-currentQuestion=0
-score=0
-timeLeft=30
-
-startTimer()
-loadQuestion()
-
-}
-
-function loadQuestion(){
-
-const q=questions[currentQuestion]
-
-document.getElementById("question").textContent=q.question
-
-document.getElementById("counter").textContent=
-"Question "+(currentQuestion+1)+" of "+questions.length
-
-const optionsDiv=document.getElementById("options")
-optionsDiv.innerHTML=""
-
-q.options.forEach(option=>{
-
-const btn=document.createElement("button")
-
-btn.textContent=option
-btn.classList.add("option")
-
-btn.onclick=()=>{
-
-selectedAnswer=option
-
-document.querySelectorAll(".option").forEach(b=>b.classList.remove("selected"))
-
-btn.classList.add("selected")
-
-}
-
-optionsDiv.appendChild(btn)
-
-})
-
-updateProgress()
-
-}
-
-function nextQuestion(){
-
-if(!selectedAnswer) return
-
-if(selectedAnswer===questions[currentQuestion].answer){
-score++
-}
-
-selectedAnswer=null
-currentQuestion++
-
-if(currentQuestion<questions.length){
-loadQuestion()
-}else{
-showResult()
-}
-
-}
-
-function showResult(){
-
-clearInterval(timer)
-
-document.getElementById("quizSection").classList.add("hidden")
-
-document.getElementById("resultSection").classList.remove("hidden")
-
-let percentage=Math.round((score/questions.length)*100)
-
-document.getElementById("score").textContent=
-"You scored "+score+" / "+questions.length+" ("+percentage+"%)"
-
-}
-
-function updateProgress(){
-
-let percent=(currentQuestion/questions.length)*100
-
-document.getElementById("progress").style.width=percent+"%"
-
-}
-
-function startTimer(){
-
-document.getElementById("time").textContent=timeLeft
-
-timer=setInterval(()=>{
-
-timeLeft--
-
-document.getElementById("time").textContent=timeLeft
-
-if(timeLeft<=0){
-showResult()
-}
-
-},1000)
-
-}
-
-/* Certificate */
-
-function downloadCertificate(){
-
-const name=document.getElementById("studentName").value
-
-if(!name){
-alert("Enter your name first")
-return
-}
-
-const canvas=document.getElementById("certificateCanvas")
-const ctx=canvas.getContext("2d")
-
-ctx.fillStyle="#fff"
-ctx.fillRect(0,0,800,500)
-
-ctx.strokeStyle="#2a5298"
-ctx.lineWidth=10
-ctx.strokeRect(20,20,760,460)
-
-ctx.fillStyle="#2a5298"
-ctx.font="bold 40px Georgia"
-ctx.textAlign="center"
-ctx.fillText("Certificate of Achievement",400,120)
-
-ctx.fillStyle="#000"
-ctx.font="24px Arial"
-ctx.fillText("This certifies that",400,200)
-
-ctx.font="bold 34px Arial"
-ctx.fillText(name,400,260)
-
-ctx.font="20px Arial"
-ctx.fillText("successfully completed Rural Exam Boost",400,320)
-
-ctx.font="18px Arial"
-ctx.fillText("Developed by Abdulkarim Adamu Mohammed",400,400)
-
-const link=document.createElement("a")
-link.download="Rural_Exam_Boost_Certificate.png"
-link.href=canvas.toDataURL()
-link.click()
-
-}
-
-</script>
-
+  <!-- LANDING -->
+  <div id="landing">
+    <h1>Rural Exam Boost 🎓</h1>
+    <p>Low-data multi-subject exam practice platform</p>
+
+    <div class="pitch-box">
+      <h3>Problem</h3>
+      <p>
+        Many students in rural communities lack access to quality exam practice tools
+        for subjects like Mathematics, English, and Commerce.
+      </p>
+
+      <h3>Solution</h3>
+      <p>
+        Rural Exam Boost provides a lightweight platform where students can choose a subject,
+        answer practice questions, track progress, and get instant scores.
+      </p>
+
+      <h3>Impact</h3>
+      <p>
+        It improves exam preparation, supports underserved learners,
+        and creates equal access to quality revision resources.
+      </p>
+
+      <button class="launch-btn" onclick="startApp()">Start Practice</button>
+    </div>
+  </div>
+
+  <!-- APP -->
+  <div id="app">
+    <div class="container">
+
+      <div class="header">
+        <h2>Rural Exam Boost 🎓</h2>
+        <p style="margin:0;font-size:14px;">
+          Multi-Subject Exam Practice System
+        </p>
+      </div>
+
+      <!-- SUBJECT SELECTION -->
+      <div id="subjectSection" class="card">
+        <h3>Select a Subject</h3>
+        <button class="subject-btn" onclick="startQuiz('math')">Mathematics</button>
+        <button class="subject-btn" onclick="startQuiz('english')">English</button>
+        <button class="subject-btn" onclick="startQuiz('commerce')">Commerce</button>
+      </div>
+
+      <!-- QUIZ SECTION -->
+      <div id="quizSection" class="card hidden">
+        <div class="topbar">
+          <div><strong>Subject:</strong> <span id="currentSubject"></span></div>
+          <div><strong>Question:</strong> <span id="counter"></span></div>
+          <div><strong>Time Left:</strong> <span id="time">60</span>s</div>
+        </div>
+
+        <div class="progress-bar">
+          <div class="progress" id="progress"></div>
+        </div>
+
+        <h3 id="question"></h3>
+        <div id="options"></div>
+
+        <button onclick="nextQuestion()">Next Question</button>
+        <button onclick="submitQuiz()" style="background:#28a745;">Submit Quiz</button>
+        <button onclick="goHome()" style="background:#6c757d;">Back to Subjects</button>
+      </div>
+
+      <!-- RESULT SECTION -->
+      <div id="resultSection" class="card hidden">
+        <div class="result-box">
+          <h2>Exam Result</h2>
+          <p><strong>Subject:</strong> <span id="resultSubject"></span></p>
+          <p id="scoreText"></p>
+          <p id="remarkText"></p>
+
+          <input id="studentName" placeholder="Enter your name for certificate" />
+          <button onclick="downloadCertificate()">Download Certificate</button>
+          <button onclick="restartQuiz()" style="background:#1f4e79;">Try Another Subject</button>
+
+          <canvas id="certificateCanvas" width="900" height="500" style="display:none;"></canvas>
+        </div>
+      </div>
+
+      <footer>
+        © 2026 Rural Exam Boost | Multi-Subject Exam System
+      </footer>
+    </div>
+  </div>
+
+  <script>
+    function startApp(){
+      document.getElementById("landing").style.display = "none";
+      document.getElementById("app").style.display = "block";
+    }
+
+    const questionBank = {
+      math: [
+        {question:"5 × 6 = ?", options:["11","30","25","56"], answer:"30"},
+        {question:"12 ÷ 3 = ?", options:["2","4","6","3"], answer:"4"},
+        {question:"9² = ?", options:["18","81","27","72"], answer:"81"},
+        {question:"15 + 17 = ?", options:["32","30","29","31"], answer:"32"},
+        {question:"Square root of 64 is?", options:["6","8","7","9"], answer:"8"}
+      ],
+
+      english: [
+        {question:"Synonym of Happy?", options:["Sad","Joyful","Angry","Cold"], answer:"Joyful"},
+        {question:"Opposite of Hot?", options:["Warm","Cold","Heat","Boil"], answer:"Cold"},
+        {question:"Correct spelling?", options:["Recieve","Receive","Receve","Recive"], answer:"Receive"},
+        {question:"A noun is a name of a?", options:["Action","Place, person or thing","Description","Sound"], answer:"Place, person or thing"},
+        {question:"Choose the correct sentence.", options:["She go to school","She goes to school","She going to school","She gone to school"], answer:"She goes to school"}
+      ],
+
+      commerce: [
+        {question:"Manufacturers can produce goods ahead of demand because of the existence of?", options:["Advertising","Exportation","Transportation","Warehousing"], answer:"Warehousing"},
+        {question:"A Public Limited Company can sue and be sued because it has?", options:["Certificate of trading","Corporate status","Memorandum of association","Board of directors"], answer:"Corporate status"},
+        {question:"In cumulative preference shares, which is true?", options:["Unpaid dividend is forfeited","Unpaid dividend is carried forward","Dividend is in reserve account","Capital could be refunded"], answer:"Unpaid dividend is carried forward"},
+        {question:"The declaration by a ship captain stating cargo and passengers is called?", options:["Receipt","Manifest","Bill of sight","Bill of lading"], answer:"Manifest"},
+        {question:"A method of guaranteeing overseas payment is?", options:["Certified cheque","Bill of exchange","Letter of credit","Bank draft"], answer:"Letter of credit"}
+      ]
+    };
+
+    let currentSubject = "";
+    let questions = [];
+    let currentQuestion = 0;
+    let score = 0;
+    let selectedAnswer = null;
+    let timer = null;
+    let timeLeft = 60;
+
+    function formatSubjectName(subject){
+      const names = {
+        math: "Mathematics",
+        english: "English",
+        commerce: "Commerce"
+      };
+      return names[subject] || subject;
+    }
+
+    function startQuiz(subject){
+      currentSubject = subject;
+      questions = [...questionBank[subject]];
+      currentQuestion = 0;
+      score = 0;
+      selectedAnswer = null;
+      timeLeft = 60;
+
+      document.getElementById("subjectSection").classList.add("hidden");
+      document.getElementById("resultSection").classList.add("hidden");
+      document.getElementById("quizSection").classList.remove("hidden");
+      document.getElementById("currentSubject").textContent = formatSubjectName(subject);
+
+      startTimer();
+      loadQuestion();
+    }
+
+    function loadQuestion(){
+      const q = questions[currentQuestion];
+      if(!q){
+        submitQuiz();
+        return;
+      }
+
+      document.getElementById("question").textContent = q.question;
+      document.getElementById("counter").textContent = `${currentQuestion + 1} of ${questions.length}`;
+
+      const optionsDiv = document.getElementById("options");
+      optionsDiv.innerHTML = "";
+      selectedAnswer = null;
+
+      q.options.forEach(option => {
+        const btn = document.createElement("button");
+        btn.textContent = option;
+        btn.className = "option";
+        btn.onclick = function(){
+          selectedAnswer = option;
+          document.querySelectorAll(".option").forEach(b => b.classList.remove("selected"));
+          btn.classList.add("selected");
+        };
+        optionsDiv.appendChild(btn);
+      });
+
+      updateProgress();
+    }
+
+    function nextQuestion(){
+      if(selectedAnswer === null){
+        alert("Please select an answer first.");
+        return;
+      }
+
+      if(selectedAnswer === questions[currentQuestion].answer){
+        score++;
+      }
+
+      currentQuestion++;
+
+      if(currentQuestion < questions.length){
+        loadQuestion();
+      } else {
+        submitQuiz();
+      }
+    }
+
+    function submitQuiz(){
+      clearInterval(timer);
+
+      document.getElementById("quizSection").classList.add("hidden");
+      document.getElementById("resultSection").classList.remove("hidden");
+      document.getElementById("resultSubject").textContent = formatSubjectName(currentSubject);
+
+      const percentage = Math.round((score / questions.length) * 100);
+      document.getElementById("scoreText").textContent =
+        `You scored ${score} out of ${questions.length} (${percentage}%)`;
+
+      let remark = "";
+      if (percentage >= 80) {
+        remark = "Excellent performance!";
+      } else if (percentage >= 50) {
+        remark = "Good job, keep improving.";
+      } else {
+        remark = "Keep practicing, you will improve.";
+      }
+
+      document.getElementById("remarkText").textContent = remark;
+    }
+
+    function updateProgress(){
+      const percent = ((currentQuestion) / questions.length) * 100;
+      document.getElementById("progress").style.width = percent + "%";
+    }
+
+    function startTimer(){
+      clearInterval(timer);
+      document.getElementById("time").textContent = timeLeft;
+
+      timer = setInterval(() => {
+        timeLeft--;
+        document.getElementById("time").textContent = timeLeft;
+
+        if(timeLeft <= 0){
+          clearInterval(timer);
+          submitQuiz();
+        }
+      }, 1000);
+    }
+
+    function goHome(){
+      clearInterval(timer);
+      document.getElementById("quizSection").classList.add("hidden");
+      document.getElementById("resultSection").classList.add("hidden");
+      document.getElementById("subjectSection").classList.remove("hidden");
+    }
+
+    function restartQuiz(){
+      document.getElementById("studentName").value = "";
+      goHome();
+    }
+
+    function downloadCertificate(){
+      const name = document.getElementById("studentName").value.trim();
+      if(!name){
+        alert("Please enter your name first.");
+        return;
+      }
+
+      const canvas = document.getElementById("certificateCanvas");
+      const ctx = canvas.getContext("2d");
+
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.strokeStyle = "#1f4e79";
+      ctx.lineWidth = 8;
+      ctx.strokeRect(20, 20, canvas.width - 40, canvas.height - 40);
+
+      ctx.fillStyle = "#1f4e79";
+      ctx.textAlign = "center";
+
+      ctx.font = "bold 40px Georgia";
+      ctx.fillText("Certificate of Completion", canvas.width / 2, 100);
+
+      ctx.font = "24px Arial";
+      ctx.fillStyle = "#333";
+      ctx.fillText("This certifies that", canvas.width / 2, 170);
+
+      ctx.font = "bold 34px Arial";
+      ctx.fillStyle = "#000";
+      ctx.fillText(name, canvas.width / 2, 240);
+
+      ctx.font = "22px Arial";
+      ctx.fillStyle = "#333";
+      ctx.fillText(`successfully completed the ${formatSubjectName(currentSubject)} practice test`, canvas.width / 2, 300);
+
+      ctx.fillText(`Score: ${score} / ${questions.length}`, canvas.width / 2, 345);
+
+      ctx.font = "18px Arial";
+      ctx.fillText("Rural Exam Boost", canvas.width / 2, 410);
+      ctx.fillText(new Date().toLocaleDateString(), canvas.width / 2, 445);
+
+      const link = document.createElement("a");
+      link.download = `${formatSubjectName(currentSubject)}_Certificate.png`;
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+    }
+  </script>
 </body>
 </html>
