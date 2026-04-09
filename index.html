@@ -179,27 +179,16 @@
       margin:6px 0;
     }
 
-    .admin-nav{
+    .tabs{
       display:flex;
       gap:10px;
       flex-wrap:wrap;
-      margin-bottom:15px;
+      margin-bottom:16px;
     }
 
     .subject-list button{
       width:100%;
       margin-bottom:10px;
-    }
-
-    .badge{
-      display:inline-block;
-      background:#e8f1fb;
-      color:#174a7c;
-      padding:6px 10px;
-      border-radius:999px;
-      font-size:13px;
-      margin-right:6px;
-      margin-bottom:6px;
     }
 
     table{
@@ -220,11 +209,12 @@
       background:#f1f5fa;
     }
 
-    .tabs{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-bottom:16px;
+    #certificateBox{
+      margin-top:15px;
+      padding:15px;
+      border:1px solid #d8e6f3;
+      border-radius:12px;
+      background:#f8fbff;
     }
 
     footer{
@@ -336,11 +326,12 @@
       <p id="scoreLine"></p>
       <p id="remarkLine"></p>
 
-      <input id="certificateName" placeholder="Enter your name for certificate">
-      <div class="grid grid-2">
-        <button onclick="downloadCertificate()">Download Certificate</button>
-        <button class="btn-green" onclick="restartExamFlow()">Try Another Subject</button>
+      <div id="certificateBox" class="hidden">
+        <input id="certificateName" placeholder="Enter your name for certificate">
+        <button onclick="downloadCertificate()">Download Pass Certificate</button>
       </div>
+
+      <button class="btn-green btn-block" onclick="restartExamFlow()">Try Another Subject</button>
     </div>
 
     <div id="studentResultsSection" class="card hidden">
@@ -804,12 +795,20 @@
       document.getElementById("resultSubject").textContent = currentQuizSubject;
       document.getElementById("scoreLine").textContent = `You scored ${score} out of ${currentQuestions.length} (${percentage}%)`;
 
-      let remark = "Keep practicing.";
-      if (percentage >= 80) remark = "Excellent performance!";
-      else if (percentage >= 50) remark = "Good job, keep improving.";
+      const certificateBox = document.getElementById("certificateBox");
+
+      let remark = "";
+      if (percentage >= 50) {
+        remark = "Congratulations, you passed!";
+        certificateBox.classList.remove("hidden");
+        document.getElementById("certificateName").value = student.name;
+      } else {
+        remark = "You did not pass. Keep practicing.";
+        certificateBox.classList.add("hidden");
+        document.getElementById("certificateName").value = "";
+      }
 
       document.getElementById("remarkLine").textContent = remark;
-      document.getElementById("certificateName").value = student.name;
       renderStudentStats();
     }
 
@@ -900,6 +899,13 @@
         return;
       }
 
+      const percentage = Math.round((score / currentQuestions.length) * 100);
+
+      if (percentage < 50) {
+        alert("Certificate is only available for students who passed.");
+        return;
+      }
+
       const canvas = document.getElementById("certificateCanvas");
       const ctx = canvas.getContext("2d");
 
@@ -918,23 +924,24 @@
 
       ctx.font = "26px Arial";
       ctx.fillStyle = "#333";
-      ctx.fillText("This certifies that", canvas.width / 2, 200);
+      ctx.fillText("This is to certify that", canvas.width / 2, 200);
 
-      ctx.font = "bold 38px Arial";
+      ctx.font = "bold 40px Arial";
       ctx.fillStyle = "#000";
       ctx.fillText(name, canvas.width / 2, 270);
 
       ctx.font = "24px Arial";
       ctx.fillStyle = "#333";
-      ctx.fillText(`successfully completed the ${currentQuizSubject} test`, canvas.width / 2, 340);
-      ctx.fillText(`Score: ${score} / ${currentQuestions.length}`, canvas.width / 2, 385);
+      ctx.fillText(`has successfully passed the ${currentQuizSubject} examination`, canvas.width / 2, 340);
+
+      ctx.fillText(`Score: ${score} / ${currentQuestions.length} (${percentage}%)`, canvas.width / 2, 385);
 
       ctx.font = "20px Arial";
       ctx.fillText("Rural Exam Boost", canvas.width / 2, 470);
       ctx.fillText(new Date().toLocaleDateString(), canvas.width / 2, 510);
 
       const link = document.createElement("a");
-      link.download = `${currentQuizSubject}_Certificate.png`;
+      link.download = `${currentQuizSubject}_Pass_Certificate.png`;
       link.href = canvas.toDataURL("image/png");
       link.click();
     }
