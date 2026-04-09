@@ -227,7 +227,6 @@
 </head>
 <body>
 
-  <!-- LANDING -->
   <div id="landingPage" class="container hero">
     <h1>Rural Exam Boost 🎓</h1>
     <p>Low-data multi-subject exam practice platform</p>
@@ -249,7 +248,6 @@
     </div>
   </div>
 
-  <!-- STUDENT AUTH -->
   <div id="studentAuthPage" class="container hidden">
     <div class="header">
       <h2>Student Portal</h2>
@@ -276,7 +274,6 @@
     <button class="btn-gray btn-block" onclick="goLanding()">Back Home</button>
   </div>
 
-  <!-- STUDENT APP -->
   <div id="studentApp" class="container hidden">
     <div class="header">
       <h2>Rural Exam Boost 🎓</h2>
@@ -343,7 +340,6 @@
     <canvas id="certificateCanvas" width="1000" height="600" class="hidden"></canvas>
   </div>
 
-  <!-- ADMIN LOGIN -->
   <div id="adminLoginPage" class="container hidden">
     <div class="header">
       <h2>Admin Login</h2>
@@ -359,7 +355,6 @@
     </div>
   </div>
 
-  <!-- ADMIN APP -->
   <div id="adminApp" class="container hidden">
     <div class="header">
       <h2>Rural Exam Boost Admin Panel</h2>
@@ -443,6 +438,8 @@
     let score = 0;
     let timer = null;
     let timeLeft = 60;
+    let answeredCurrentQuestion = false;
+    let quizSubmitted = false;
 
     function seedData() {
       if (!localStorage.getItem(SUBJECTS_KEY)) {
@@ -522,13 +519,8 @@
     }
 
     function hideAllPages() {
-      [
-        "landingPage",
-        "studentAuthPage",
-        "studentApp",
-        "adminLoginPage",
-        "adminApp"
-      ].forEach(id => document.getElementById(id).classList.add("hidden"));
+      ["landingPage", "studentAuthPage", "studentApp", "adminLoginPage", "adminApp"]
+        .forEach(id => document.getElementById(id).classList.add("hidden"));
     }
 
     function goLanding() {
@@ -644,6 +636,7 @@
       ["dashboardTab", "subjectsTab", "questionsTab", "studentsTab", "resultsTab"].forEach(id => {
         document.getElementById(id).classList.add("hidden");
       });
+
       document.getElementById(tabId).classList.remove("hidden");
 
       if (tabId === "dashboardTab") renderAdminDashboard();
@@ -676,6 +669,7 @@
     function renderStudentSubjects() {
       const wrap = document.getElementById("studentSubjects");
       wrap.innerHTML = "";
+
       getSubjects().forEach(subject => {
         const btn = document.createElement("button");
         btn.textContent = subject;
@@ -699,6 +693,8 @@
       selectedAnswer = null;
       score = 0;
       timeLeft = Math.max(subjectQuestions.length * 20, 30);
+      answeredCurrentQuestion = false;
+      quizSubmitted = false;
 
       document.getElementById("studentHome").classList.add("hidden");
       document.getElementById("studentDashboard").classList.add("hidden");
@@ -712,18 +708,20 @@
     }
 
     function loadQuestion() {
-      const q = currentQuestions[currentQuestionIndex];
-      if (!q) {
+      if (currentQuestionIndex >= currentQuestions.length) {
         submitQuiz();
         return;
       }
 
+      const q = currentQuestions[currentQuestionIndex];
       document.getElementById("counter").textContent = `${currentQuestionIndex + 1} of ${currentQuestions.length}`;
       document.getElementById("questionText").textContent = q.question;
 
       const optionsBox = document.getElementById("optionsBox");
       optionsBox.innerHTML = "";
+
       selectedAnswer = null;
+      answeredCurrentQuestion = false;
 
       q.options.forEach(option => {
         const btn = document.createElement("button");
@@ -740,16 +738,24 @@
       updateProgress();
     }
 
+    function markCurrentQuestion() {
+      if (answeredCurrentQuestion) return;
+
+      const current = currentQuestions[currentQuestionIndex];
+      if (current && selectedAnswer === current.answer) {
+        score++;
+      }
+
+      answeredCurrentQuestion = true;
+    }
+
     function nextQuestion() {
       if (selectedAnswer === null) {
         alert("Please select an answer first.");
         return;
       }
 
-      if (selectedAnswer === currentQuestions[currentQuestionIndex].answer) {
-        score++;
-      }
-
+      markCurrentQuestion();
       currentQuestionIndex++;
 
       if (currentQuestionIndex < currentQuestions.length) {
@@ -760,28 +766,28 @@
     }
 
     function submitQuiz() {
+      if (quizSubmitted) return;
+      quizSubmitted = true;
+
       clearInterval(timer);
 
-      if (
-        currentQuestions[currentQuestionIndex] &&
-        selectedAnswer !== null &&
-        currentQuestionIndex < currentQuestions.length
-      ) {
-        if (selectedAnswer === currentQuestions[currentQuestionIndex].answer) {
-          score++;
-        }
+      if (currentQuestionIndex < currentQuestions.length && selectedAnswer !== null) {
+        markCurrentQuestion();
       }
 
-      const percentage = Math.round((score / currentQuestions.length) * 100);
+      const percentage = currentQuestions.length
+        ? Math.round((score / currentQuestions.length) * 100)
+        : 0;
+
       const student = getCurrentStudent();
 
       const result = {
         studentName: student.name,
         studentEmail: student.email,
         subject: currentQuizSubject,
-        score,
+        score: score,
         total: currentQuestions.length,
-        percentage,
+        percentage: percentage,
         date: new Date().toLocaleString()
       };
 
@@ -797,18 +803,16 @@
 
       const certificateBox = document.getElementById("certificateBox");
 
-      let remark = "";
       if (percentage >= 50) {
-        remark = "Congratulations, you passed!";
+        document.getElementById("remarkLine").textContent = "Congratulations, you passed!";
         certificateBox.classList.remove("hidden");
         document.getElementById("certificateName").value = student.name;
       } else {
-        remark = "You did not pass. Keep practicing.";
+        document.getElementById("remarkLine").textContent = "You did not pass. Keep practicing.";
         certificateBox.classList.add("hidden");
         document.getElementById("certificateName").value = "";
       }
 
-      document.getElementById("remarkLine").textContent = remark;
       renderStudentStats();
     }
 
@@ -850,6 +854,7 @@
             </thead>
             <tbody>
         `;
+
         results.forEach(item => {
           html += `
             <tr>
@@ -860,6 +865,7 @@
             </tr>
           `;
         });
+
         html += "</tbody></table>";
       }
 
@@ -872,7 +878,9 @@
     }
 
     function updateProgress() {
-      const percent = (currentQuestionIndex / currentQuestions.length) * 100;
+      const percent = currentQuestions.length
+        ? (currentQuestionIndex / currentQuestions.length) * 100
+        : 0;
       document.getElementById("progressBar").style.width = percent + "%";
     }
 
@@ -899,7 +907,9 @@
         return;
       }
 
-      const percentage = Math.round((score / currentQuestions.length) * 100);
+      const percentage = currentQuestions.length
+        ? Math.round((score / currentQuestions.length) * 100)
+        : 0;
 
       if (percentage < 50) {
         alert("Certificate is only available for students who passed.");
@@ -933,7 +943,6 @@
       ctx.font = "24px Arial";
       ctx.fillStyle = "#333";
       ctx.fillText(`has successfully passed the ${currentQuizSubject} examination`, canvas.width / 2, 340);
-
       ctx.fillText(`Score: ${score} / ${currentQuestions.length} (${percentage}%)`, canvas.width / 2, 385);
 
       ctx.font = "20px Arial";
@@ -953,7 +962,9 @@
       const students = getStudents();
 
       let totalQuestions = 0;
-      subjects.forEach(subject => totalQuestions += (questions[subject] || []).length);
+      subjects.forEach(subject => {
+        totalQuestions += (questions[subject] || []).length;
+      });
 
       document.getElementById("dashboardStats").innerHTML = `
         <div class="stat-box"><h4>Subjects</h4><p>${subjects.length}</p></div>
