@@ -3,431 +3,899 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Rural Exam Boost</title>
+  <title>Rural Exam Boost Pro</title>
   <style>
     *{
       box-sizing:border-box;
     }
 
     body{
-      font-family:Arial, sans-serif;
-      background:#f4f7fb;
       margin:0;
-      color:#222;
+      font-family:Arial, sans-serif;
+      background:#eef3f9;
+      color:#1d2a35;
     }
 
-    #landing{
-      text-align:center;
-      padding:50px 20px;
-      max-width:800px;
-      margin:auto;
-    }
-
-    #landing h1{
-      color:#1f4e79;
-      font-size:40px;
-      margin-bottom:10px;
-    }
-
-    .pitch-box{
-      background:#fff;
-      padding:25px;
-      border-radius:12px;
-      box-shadow:0 4px 14px rgba(0,0,0,0.08);
-      margin-top:20px;
-    }
-
-    .launch-btn{
-      margin-top:20px;
-      padding:14px 22px;
-      background:#1f4e79;
-      color:#fff;
-      border:none;
-      border-radius:8px;
-      cursor:pointer;
-      font-size:16px;
-    }
-
-    #app{
-      display:none;
+    .hidden{
+      display:none !important;
     }
 
     .container{
-      max-width:760px;
-      margin:30px auto;
-      padding:20px;
+      width:min(1100px, 94%);
+      margin:24px auto;
     }
 
-    .header{
-      background:#1f4e79;
-      color:white;
-      padding:18px;
-      border-radius:12px;
-      margin-bottom:20px;
+    .hero{
+      text-align:center;
+      padding:50px 20px;
+    }
+
+    .hero h1{
+      color:#174a7c;
+      font-size:42px;
+      margin-bottom:10px;
     }
 
     .card{
-      background:white;
-      padding:20px;
-      border-radius:12px;
-      box-shadow:0 4px 12px rgba(0,0,0,0.06);
+      background:#fff;
+      border-radius:16px;
+      padding:22px;
+      box-shadow:0 6px 18px rgba(0,0,0,0.08);
       margin-bottom:20px;
     }
 
-    h2,h3{
+    .header{
+      background:linear-gradient(135deg,#174a7c,#2c6aa6);
+      color:#fff;
+      border-radius:16px;
+      padding:22px;
+      margin-bottom:20px;
+    }
+
+    .header p{
+      margin:6px 0 0;
+      font-size:14px;
+    }
+
+    h2,h3,h4{
       margin-top:0;
     }
 
+    .grid{
+      display:grid;
+      gap:16px;
+    }
+
+    .grid-2{
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    }
+
+    .grid-3{
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    }
+
+    .stat-box{
+      background:#f7fbff;
+      border:1px solid #d8e6f3;
+      border-radius:14px;
+      padding:16px;
+    }
+
+    .stat-box h4{
+      margin:0 0 8px;
+      color:#174a7c;
+      font-size:14px;
+    }
+
+    .stat-box p{
+      margin:0;
+      font-size:26px;
+      font-weight:bold;
+    }
+
     button{
-      width:100%;
-      padding:12px;
+      background:#174a7c;
+      color:#fff;
       border:none;
-      border-radius:8px;
-      background:#1f4e79;
-      color:white;
+      border-radius:10px;
+      padding:12px 14px;
       cursor:pointer;
       font-size:15px;
-      margin-top:10px;
     }
 
     button:hover{
       opacity:0.95;
     }
 
-    .subject-btn{
-      margin-bottom:10px;
+    .btn-green{ background:#198754; }
+    .btn-red{ background:#dc3545; }
+    .btn-gray{ background:#6c757d; }
+    .btn-orange{ background:#fd7e14; }
+    .btn-block{
+      width:100%;
+      margin-top:10px;
     }
 
-    .option{
-      background:#eef3f8;
-      color:#111;
-      border:1px solid #d7e0ea;
-    }
-
-    .option.selected{
-      background:#1f4e79;
-      color:white;
-    }
-
-    .hidden{
-      display:none;
+    input, select, textarea{
+      width:100%;
+      padding:12px;
+      border:1px solid #cfd8e3;
+      border-radius:10px;
+      margin-top:8px;
+      margin-bottom:12px;
+      font-size:15px;
     }
 
     .topbar{
       display:flex;
       justify-content:space-between;
-      gap:10px;
+      align-items:center;
       flex-wrap:wrap;
-      margin-bottom:10px;
+      gap:10px;
       font-size:14px;
-      color:#444;
+      margin-bottom:14px;
     }
 
     .progress-bar{
       width:100%;
       height:10px;
-      background:#dde6f0;
+      background:#dbe7f3;
       border-radius:999px;
       overflow:hidden;
-      margin:15px 0;
+      margin:14px 0 18px;
     }
 
     .progress{
       height:100%;
       width:0%;
-      background:#28a745;
+      background:#198754;
       transition:width 0.3s ease;
     }
 
-    #question{
-      font-size:20px;
+    .option{
+      display:block;
+      width:100%;
+      text-align:left;
+      margin-bottom:10px;
+      background:#eef4fb;
+      color:#222;
+      border:1px solid #d5e1ef;
+    }
+
+    .option.selected{
+      background:#174a7c;
+      color:#fff;
+    }
+
+    .question-item{
+      border:1px solid #e1e6ee;
+      border-radius:12px;
+      padding:14px;
+      margin-bottom:12px;
+      background:#fafbfd;
+    }
+
+    .question-item p{
+      margin:6px 0;
+    }
+
+    .admin-nav{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
       margin-bottom:15px;
     }
 
-    input{
+    .subject-list button{
       width:100%;
-      padding:12px;
-      border:1px solid #ccc;
-      border-radius:8px;
-      margin-top:10px;
       margin-bottom:10px;
     }
 
-    .result-box{
-      text-align:center;
+    .badge{
+      display:inline-block;
+      background:#e8f1fb;
+      color:#174a7c;
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:13px;
+      margin-right:6px;
+      margin-bottom:6px;
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      margin-top:10px;
+      background:#fff;
+    }
+
+    th, td{
+      border:1px solid #e1e6ee;
+      padding:10px;
+      text-align:left;
+      font-size:14px;
+    }
+
+    th{
+      background:#f1f5fa;
+    }
+
+    .tabs{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-bottom:16px;
     }
 
     footer{
       text-align:center;
       color:#666;
       font-size:12px;
-      margin-top:15px;
+      margin:24px 0;
     }
   </style>
 </head>
 <body>
 
   <!-- LANDING -->
-  <div id="landing">
+  <div id="landingPage" class="container hero">
     <h1>Rural Exam Boost 🎓</h1>
     <p>Low-data multi-subject exam practice platform</p>
 
-    <div class="pitch-box">
+    <div class="card">
       <h3>Problem</h3>
-      <p>
-        Many students in rural communities lack access to quality exam practice tools
-        for subjects like Mathematics, English, and Commerce.
-      </p>
+      <p>Many students in rural communities lack access to quality exam practice tools and affordable revision support.</p>
 
       <h3>Solution</h3>
-      <p>
-        Rural Exam Boost provides a lightweight platform where students can choose a subject,
-        answer practice questions, track progress, and get instant scores.
-      </p>
+      <p>Rural Exam Boost provides a simple web app where students can register, practice questions by subject, get instant scores, and track performance.</p>
 
       <h3>Impact</h3>
-      <p>
-        It improves exam preparation, supports underserved learners,
-        and creates equal access to quality revision resources.
-      </p>
+      <p>It supports exam preparation, improves confidence, and expands access to learning opportunities.</p>
 
-      <button class="launch-btn" onclick="startApp()">Start Practice</button>
+      <div class="grid grid-2">
+        <button class="btn-block" onclick="openStudentAuth()">Student Portal</button>
+        <button class="btn-block btn-green" onclick="openAdminLogin()">Admin Portal</button>
+      </div>
     </div>
   </div>
 
-  <!-- APP -->
-  <div id="app">
-    <div class="container">
+  <!-- STUDENT AUTH -->
+  <div id="studentAuthPage" class="container hidden">
+    <div class="header">
+      <h2>Student Portal</h2>
+      <p>Register or login to continue</p>
+    </div>
 
-      <div class="header">
-        <h2>Rural Exam Boost 🎓</h2>
-        <p style="margin:0;font-size:14px;">
-          Multi-Subject Exam Practice System
-        </p>
+    <div class="grid grid-2">
+      <div class="card">
+        <h3>Register</h3>
+        <input id="registerName" placeholder="Full Name">
+        <input id="registerEmail" type="email" placeholder="Email">
+        <input id="registerPassword" type="password" placeholder="Password">
+        <button class="btn-block" onclick="registerStudent()">Create Account</button>
       </div>
 
-      <!-- SUBJECT SELECTION -->
-      <div id="subjectSection" class="card">
-        <h3>Select a Subject</h3>
-        <button class="subject-btn" onclick="startQuiz('math')">Mathematics</button>
-        <button class="subject-btn" onclick="startQuiz('english')">English</button>
-        <button class="subject-btn" onclick="startQuiz('commerce')">Commerce</button>
+      <div class="card">
+        <h3>Login</h3>
+        <input id="loginEmail" type="email" placeholder="Email">
+        <input id="loginPassword" type="password" placeholder="Password">
+        <button class="btn-block btn-green" onclick="loginStudent()">Login</button>
+      </div>
+    </div>
+
+    <button class="btn-gray btn-block" onclick="goLanding()">Back Home</button>
+  </div>
+
+  <!-- STUDENT APP -->
+  <div id="studentApp" class="container hidden">
+    <div class="header">
+      <h2>Rural Exam Boost 🎓</h2>
+      <p>Welcome, <b id="studentWelcomeName"></b></p>
+    </div>
+
+    <div id="studentDashboard" class="card">
+      <h3>Student Dashboard</h3>
+      <div class="grid grid-3" id="studentStats"></div>
+    </div>
+
+    <div id="studentHome" class="card">
+      <h3>Select a Subject</h3>
+      <div id="studentSubjects" class="subject-list"></div>
+      <div class="grid grid-2">
+        <button class="btn-orange" onclick="showStudentResults()">My Results</button>
+        <button class="btn-gray" onclick="logoutStudent()">Logout</button>
+      </div>
+    </div>
+
+    <div id="quizSection" class="card hidden">
+      <div class="topbar">
+        <div><strong>Subject:</strong> <span id="currentSubject"></span></div>
+        <div><strong>Question:</strong> <span id="counter"></span></div>
+        <div><strong>Time Left:</strong> <span id="timeLeft"></span>s</div>
       </div>
 
-      <!-- QUIZ SECTION -->
-      <div id="quizSection" class="card hidden">
-        <div class="topbar">
-          <div><strong>Subject:</strong> <span id="currentSubject"></span></div>
-          <div><strong>Question:</strong> <span id="counter"></span></div>
-          <div><strong>Time Left:</strong> <span id="time">60</span>s</div>
-        </div>
+      <div class="progress-bar">
+        <div class="progress" id="progressBar"></div>
+      </div>
 
-        <div class="progress-bar">
-          <div class="progress" id="progress"></div>
-        </div>
+      <h3 id="questionText"></h3>
+      <div id="optionsBox"></div>
 
-        <h3 id="question"></h3>
-        <div id="options"></div>
-
+      <div class="grid grid-2">
         <button onclick="nextQuestion()">Next Question</button>
-        <button onclick="submitQuiz()" style="background:#28a745;">Submit Quiz</button>
-        <button onclick="goHome()" style="background:#6c757d;">Back to Subjects</button>
+        <button class="btn-green" onclick="submitQuiz()">Submit Quiz</button>
       </div>
 
-      <!-- RESULT SECTION -->
-      <div id="resultSection" class="card hidden">
-        <div class="result-box">
-          <h2>Exam Result</h2>
-          <p><strong>Subject:</strong> <span id="resultSubject"></span></p>
-          <p id="scoreText"></p>
-          <p id="remarkText"></p>
+      <button class="btn-gray btn-block" onclick="cancelQuiz()">Back to Subjects</button>
+    </div>
 
-          <input id="studentName" placeholder="Enter your name for certificate" />
-          <button onclick="downloadCertificate()">Download Certificate</button>
-          <button onclick="restartQuiz()" style="background:#1f4e79;">Try Another Subject</button>
+    <div id="resultSection" class="card hidden">
+      <h3>Exam Result</h3>
+      <p><strong>Student:</strong> <span id="resultStudentName"></span></p>
+      <p><strong>Subject:</strong> <span id="resultSubject"></span></p>
+      <p id="scoreLine"></p>
+      <p id="remarkLine"></p>
 
-          <canvas id="certificateCanvas" width="900" height="500" style="display:none;"></canvas>
-        </div>
+      <input id="certificateName" placeholder="Enter your name for certificate">
+      <div class="grid grid-2">
+        <button onclick="downloadCertificate()">Download Certificate</button>
+        <button class="btn-green" onclick="restartExamFlow()">Try Another Subject</button>
       </div>
+    </div>
 
-      <footer>
-        © 2026 Rural Exam Boost | Multi-Subject Exam System
-      </footer>
+    <div id="studentResultsSection" class="card hidden">
+      <h3>My Results</h3>
+      <div id="studentResultsTableWrap"></div>
+      <button class="btn-gray btn-block" onclick="backToStudentHome()">Back</button>
+    </div>
+
+    <canvas id="certificateCanvas" width="1000" height="600" class="hidden"></canvas>
+  </div>
+
+  <!-- ADMIN LOGIN -->
+  <div id="adminLoginPage" class="container hidden">
+    <div class="header">
+      <h2>Admin Login</h2>
+      <p>Manage subjects, questions, students, and results</p>
+    </div>
+
+    <div class="card">
+      <input id="adminUsername" placeholder="Username">
+      <input id="adminPassword" type="password" placeholder="Password">
+      <button class="btn-block" onclick="loginAdmin()">Login</button>
+      <button class="btn-gray btn-block" onclick="goLanding()">Back Home</button>
+      <p><small>Default login: <b>admin</b> / <b>admin123</b></small></p>
     </div>
   </div>
+
+  <!-- ADMIN APP -->
+  <div id="adminApp" class="container hidden">
+    <div class="header">
+      <h2>Rural Exam Boost Admin Panel</h2>
+      <p>Full management dashboard</p>
+    </div>
+
+    <div class="tabs">
+      <button onclick="showAdminTab('dashboardTab')">Dashboard</button>
+      <button onclick="showAdminTab('subjectsTab')">Subjects</button>
+      <button onclick="showAdminTab('questionsTab')">Questions</button>
+      <button onclick="showAdminTab('studentsTab')">Students</button>
+      <button onclick="showAdminTab('resultsTab')">Results</button>
+      <button class="btn-red" onclick="logoutAdmin()">Logout</button>
+    </div>
+
+    <div id="dashboardTab" class="card">
+      <h3>Admin Dashboard</h3>
+      <div class="grid grid-3" id="dashboardStats"></div>
+    </div>
+
+    <div id="subjectsTab" class="card hidden">
+      <h3>Manage Subjects</h3>
+      <input id="newSubjectName" placeholder="Enter new subject name">
+      <button onclick="addSubject()">Add Subject</button>
+      <div id="subjectBadges" style="margin-top:15px;"></div>
+    </div>
+
+    <div id="questionsTab" class="card hidden">
+      <h3>Add / Edit Questions</h3>
+
+      <label>Select Subject</label>
+      <select id="adminQuestionSubject" onchange="renderAdminQuestions()"></select>
+
+      <input id="questionInput" placeholder="Enter question">
+      <input id="optionA" placeholder="Option A">
+      <input id="optionB" placeholder="Option B">
+      <input id="optionC" placeholder="Option C">
+      <input id="optionD" placeholder="Option D">
+
+      <label>Correct Answer</label>
+      <select id="correctAnswer">
+        <option value="">Select correct answer</option>
+      </select>
+
+      <button onclick="saveQuestion()">Save Question</button>
+      <button id="cancelEditBtn" class="btn-gray btn-block hidden" onclick="cancelEdit()">Cancel Edit</button>
+
+      <hr style="margin:20px 0">
+
+      <h4>Saved Questions</h4>
+      <div id="adminQuestionsList"></div>
+    </div>
+
+    <div id="studentsTab" class="card hidden">
+      <h3>Registered Students</h3>
+      <div id="studentsTableWrap"></div>
+    </div>
+
+    <div id="resultsTab" class="card hidden">
+      <h3>All Results</h3>
+      <div id="resultsTableWrap"></div>
+    </div>
+  </div>
+
+  <footer>© 2026 Rural Exam Boost Pro</footer>
 
   <script>
-    function startApp(){
-      document.getElementById("landing").style.display = "none";
-      document.getElementById("app").style.display = "block";
-    }
+    const SUBJECTS_KEY = "reb_subjects";
+    const QUESTIONS_KEY = "reb_questions";
+    const RESULTS_KEY = "reb_results";
+    const STUDENTS_KEY = "reb_students";
+    const CURRENT_STUDENT_KEY = "reb_current_student";
+    const ADMIN_USER = "admin";
+    const ADMIN_PASS = "admin123";
 
-    const questionBank = {
-      math: [
-        {question:"5 × 6 = ?", options:["11","30","25","56"], answer:"30"},
-        {question:"12 ÷ 3 = ?", options:["2","4","6","3"], answer:"4"},
-        {question:"9² = ?", options:["18","81","27","72"], answer:"81"},
-        {question:"15 + 17 = ?", options:["32","30","29","31"], answer:"32"},
-        {question:"Square root of 64 is?", options:["6","8","7","9"], answer:"8"}
-      ],
-
-      english: [
-        {question:"Synonym of Happy?", options:["Sad","Joyful","Angry","Cold"], answer:"Joyful"},
-        {question:"Opposite of Hot?", options:["Warm","Cold","Heat","Boil"], answer:"Cold"},
-        {question:"Correct spelling?", options:["Recieve","Receive","Receve","Recive"], answer:"Receive"},
-        {question:"A noun is a name of a?", options:["Action","Place, person or thing","Description","Sound"], answer:"Place, person or thing"},
-        {question:"Choose the correct sentence.", options:["She go to school","She goes to school","She going to school","She gone to school"], answer:"She goes to school"}
-      ],
-
-      commerce: [
-        {question:"Manufacturers can produce goods ahead of demand because of the existence of?", options:["Advertising","Exportation","Transportation","Warehousing"], answer:"Warehousing"},
-        {question:"A Public Limited Company can sue and be sued because it has?", options:["Certificate of trading","Corporate status","Memorandum of association","Board of directors"], answer:"Corporate status"},
-        {question:"In cumulative preference shares, which is true?", options:["Unpaid dividend is forfeited","Unpaid dividend is carried forward","Dividend is in reserve account","Capital could be refunded"], answer:"Unpaid dividend is carried forward"},
-        {question:"The declaration by a ship captain stating cargo and passengers is called?", options:["Receipt","Manifest","Bill of sight","Bill of lading"], answer:"Manifest"},
-        {question:"A method of guaranteeing overseas payment is?", options:["Certified cheque","Bill of exchange","Letter of credit","Bank draft"], answer:"Letter of credit"}
-      ]
-    };
-
-    let currentSubject = "";
-    let questions = [];
-    let currentQuestion = 0;
-    let score = 0;
+    let editIndex = null;
+    let currentQuizSubject = "";
+    let currentQuestions = [];
+    let currentQuestionIndex = 0;
     let selectedAnswer = null;
+    let score = 0;
     let timer = null;
     let timeLeft = 60;
 
-    function formatSubjectName(subject){
-      const names = {
-        math: "Mathematics",
-        english: "English",
-        commerce: "Commerce"
-      };
-      return names[subject] || subject;
+    function seedData() {
+      if (!localStorage.getItem(SUBJECTS_KEY)) {
+        localStorage.setItem(SUBJECTS_KEY, JSON.stringify(["Mathematics", "English", "Commerce"]));
+      }
+
+      if (!localStorage.getItem(QUESTIONS_KEY)) {
+        localStorage.setItem(QUESTIONS_KEY, JSON.stringify({
+          Mathematics: [
+            { question: "5 × 6 = ?", options: ["11", "30", "25", "56"], answer: "30" },
+            { question: "12 ÷ 3 = ?", options: ["2", "4", "6", "3"], answer: "4" },
+            { question: "9² = ?", options: ["18", "81", "27", "72"], answer: "81" }
+          ],
+          English: [
+            { question: "Synonym of Happy?", options: ["Sad", "Joyful", "Angry", "Cold"], answer: "Joyful" },
+            { question: "Correct spelling?", options: ["Recieve", "Receive", "Receve", "Recive"], answer: "Receive" },
+            { question: "Opposite of Hot?", options: ["Warm", "Cold", "Heat", "Boil"], answer: "Cold" }
+          ],
+          Commerce: [
+            { question: "Manufacturers can produce goods ahead of demand because of?", options: ["Advertising", "Exportation", "Transportation", "Warehousing"], answer: "Warehousing" },
+            { question: "A method of guaranteeing overseas payment is?", options: ["Certified cheque", "Bill of exchange", "Letter of credit", "Bank draft"], answer: "Letter of credit" }
+          ]
+        }));
+      }
+
+      if (!localStorage.getItem(RESULTS_KEY)) {
+        localStorage.setItem(RESULTS_KEY, JSON.stringify([]));
+      }
+
+      if (!localStorage.getItem(STUDENTS_KEY)) {
+        localStorage.setItem(STUDENTS_KEY, JSON.stringify([]));
+      }
     }
 
-    function startQuiz(subject){
-      currentSubject = subject;
-      questions = [...questionBank[subject]];
-      currentQuestion = 0;
-      score = 0;
-      selectedAnswer = null;
-      timeLeft = 60;
+    function getSubjects() {
+      return JSON.parse(localStorage.getItem(SUBJECTS_KEY)) || [];
+    }
 
-      document.getElementById("subjectSection").classList.add("hidden");
+    function saveSubjects(data) {
+      localStorage.setItem(SUBJECTS_KEY, JSON.stringify(data));
+    }
+
+    function getQuestions() {
+      return JSON.parse(localStorage.getItem(QUESTIONS_KEY)) || {};
+    }
+
+    function saveQuestions(data) {
+      localStorage.setItem(QUESTIONS_KEY, JSON.stringify(data));
+    }
+
+    function getResults() {
+      return JSON.parse(localStorage.getItem(RESULTS_KEY)) || [];
+    }
+
+    function saveResults(data) {
+      localStorage.setItem(RESULTS_KEY, JSON.stringify(data));
+    }
+
+    function getStudents() {
+      return JSON.parse(localStorage.getItem(STUDENTS_KEY)) || [];
+    }
+
+    function saveStudents(data) {
+      localStorage.setItem(STUDENTS_KEY, JSON.stringify(data));
+    }
+
+    function getCurrentStudent() {
+      return JSON.parse(localStorage.getItem(CURRENT_STUDENT_KEY));
+    }
+
+    function setCurrentStudent(student) {
+      localStorage.setItem(CURRENT_STUDENT_KEY, JSON.stringify(student));
+    }
+
+    function clearCurrentStudent() {
+      localStorage.removeItem(CURRENT_STUDENT_KEY);
+    }
+
+    function hideAllPages() {
+      [
+        "landingPage",
+        "studentAuthPage",
+        "studentApp",
+        "adminLoginPage",
+        "adminApp"
+      ].forEach(id => document.getElementById(id).classList.add("hidden"));
+    }
+
+    function goLanding() {
+      clearInterval(timer);
+      hideAllPages();
+      document.getElementById("landingPage").classList.remove("hidden");
+    }
+
+    function openStudentAuth() {
+      hideAllPages();
+      document.getElementById("studentAuthPage").classList.remove("hidden");
+    }
+
+    function openAdminLogin() {
+      hideAllPages();
+      document.getElementById("adminLoginPage").classList.remove("hidden");
+    }
+
+    function registerStudent() {
+      const name = document.getElementById("registerName").value.trim();
+      const email = document.getElementById("registerEmail").value.trim().toLowerCase();
+      const password = document.getElementById("registerPassword").value.trim();
+
+      if (!name || !email || !password) {
+        alert("Please complete all registration fields.");
+        return;
+      }
+
+      const students = getStudents();
+      if (students.some(student => student.email === email)) {
+        alert("An account with this email already exists.");
+        return;
+      }
+
+      const student = {
+        id: Date.now(),
+        name,
+        email,
+        password,
+        dateJoined: new Date().toLocaleString()
+      };
+
+      students.push(student);
+      saveStudents(students);
+      alert("Registration successful. You can now login.");
+
+      document.getElementById("registerName").value = "";
+      document.getElementById("registerEmail").value = "";
+      document.getElementById("registerPassword").value = "";
+    }
+
+    function loginStudent() {
+      const email = document.getElementById("loginEmail").value.trim().toLowerCase();
+      const password = document.getElementById("loginPassword").value.trim();
+
+      const student = getStudents().find(user => user.email === email && user.password === password);
+
+      if (!student) {
+        alert("Invalid student login.");
+        return;
+      }
+
+      setCurrentStudent(student);
+      openStudentApp();
+    }
+
+    function openStudentApp() {
+      const student = getCurrentStudent();
+      if (!student) {
+        openStudentAuth();
+        return;
+      }
+
+      hideAllPages();
+      document.getElementById("studentApp").classList.remove("hidden");
+      document.getElementById("studentWelcomeName").textContent = student.name;
+
+      document.getElementById("studentDashboard").classList.remove("hidden");
+      document.getElementById("studentHome").classList.remove("hidden");
+      document.getElementById("quizSection").classList.add("hidden");
+      document.getElementById("resultSection").classList.add("hidden");
+      document.getElementById("studentResultsSection").classList.add("hidden");
+
+      renderStudentSubjects();
+      renderStudentStats();
+    }
+
+    function logoutStudent() {
+      clearCurrentStudent();
+      goLanding();
+    }
+
+    function loginAdmin() {
+      const username = document.getElementById("adminUsername").value.trim();
+      const password = document.getElementById("adminPassword").value.trim();
+
+      if (username === ADMIN_USER && password === ADMIN_PASS) {
+        hideAllPages();
+        document.getElementById("adminApp").classList.remove("hidden");
+        showAdminTab("dashboardTab");
+      } else {
+        alert("Invalid admin login.");
+      }
+    }
+
+    function logoutAdmin() {
+      document.getElementById("adminUsername").value = "";
+      document.getElementById("adminPassword").value = "";
+      goLanding();
+    }
+
+    function showAdminTab(tabId) {
+      ["dashboardTab", "subjectsTab", "questionsTab", "studentsTab", "resultsTab"].forEach(id => {
+        document.getElementById(id).classList.add("hidden");
+      });
+      document.getElementById(tabId).classList.remove("hidden");
+
+      if (tabId === "dashboardTab") renderAdminDashboard();
+      if (tabId === "subjectsTab") renderSubjectBadges();
+      if (tabId === "questionsTab") {
+        populateAdminSubjectSelect();
+        renderAdminQuestions();
+      }
+      if (tabId === "studentsTab") renderStudentsTable();
+      if (tabId === "resultsTab") renderResultsTable();
+    }
+
+    function renderStudentStats() {
+      const student = getCurrentStudent();
+      const results = getResults().filter(item => item.studentEmail === student.email);
+
+      const totalExams = results.length;
+      const averageScore = totalExams
+        ? Math.round(results.reduce((sum, item) => sum + item.percentage, 0) / totalExams)
+        : 0;
+      const passed = results.filter(item => item.percentage >= 50).length;
+
+      document.getElementById("studentStats").innerHTML = `
+        <div class="stat-box"><h4>Total Exams</h4><p>${totalExams}</p></div>
+        <div class="stat-box"><h4>Average Score</h4><p>${averageScore}%</p></div>
+        <div class="stat-box"><h4>Passed</h4><p>${passed}</p></div>
+      `;
+    }
+
+    function renderStudentSubjects() {
+      const wrap = document.getElementById("studentSubjects");
+      wrap.innerHTML = "";
+      getSubjects().forEach(subject => {
+        const btn = document.createElement("button");
+        btn.textContent = subject;
+        btn.onclick = () => startQuiz(subject);
+        wrap.appendChild(btn);
+      });
+    }
+
+    function startQuiz(subject) {
+      const allQuestions = getQuestions();
+      const subjectQuestions = allQuestions[subject] || [];
+
+      if (subjectQuestions.length === 0) {
+        alert("No questions in this subject yet.");
+        return;
+      }
+
+      currentQuizSubject = subject;
+      currentQuestions = [...subjectQuestions];
+      currentQuestionIndex = 0;
+      selectedAnswer = null;
+      score = 0;
+      timeLeft = Math.max(subjectQuestions.length * 20, 30);
+
+      document.getElementById("studentHome").classList.add("hidden");
+      document.getElementById("studentDashboard").classList.add("hidden");
+      document.getElementById("studentResultsSection").classList.add("hidden");
       document.getElementById("resultSection").classList.add("hidden");
       document.getElementById("quizSection").classList.remove("hidden");
-      document.getElementById("currentSubject").textContent = formatSubjectName(subject);
+      document.getElementById("currentSubject").textContent = subject;
 
       startTimer();
       loadQuestion();
     }
 
-    function loadQuestion(){
-      const q = questions[currentQuestion];
-      if(!q){
+    function loadQuestion() {
+      const q = currentQuestions[currentQuestionIndex];
+      if (!q) {
         submitQuiz();
         return;
       }
 
-      document.getElementById("question").textContent = q.question;
-      document.getElementById("counter").textContent = `${currentQuestion + 1} of ${questions.length}`;
+      document.getElementById("counter").textContent = `${currentQuestionIndex + 1} of ${currentQuestions.length}`;
+      document.getElementById("questionText").textContent = q.question;
 
-      const optionsDiv = document.getElementById("options");
-      optionsDiv.innerHTML = "";
+      const optionsBox = document.getElementById("optionsBox");
+      optionsBox.innerHTML = "";
       selectedAnswer = null;
 
       q.options.forEach(option => {
         const btn = document.createElement("button");
-        btn.textContent = option;
         btn.className = "option";
-        btn.onclick = function(){
+        btn.textContent = option;
+        btn.onclick = () => {
           selectedAnswer = option;
-          document.querySelectorAll(".option").forEach(b => b.classList.remove("selected"));
+          document.querySelectorAll(".option").forEach(el => el.classList.remove("selected"));
           btn.classList.add("selected");
         };
-        optionsDiv.appendChild(btn);
+        optionsBox.appendChild(btn);
       });
 
       updateProgress();
     }
 
-    function nextQuestion(){
-      if(selectedAnswer === null){
+    function nextQuestion() {
+      if (selectedAnswer === null) {
         alert("Please select an answer first.");
         return;
       }
 
-      if(selectedAnswer === questions[currentQuestion].answer){
+      if (selectedAnswer === currentQuestions[currentQuestionIndex].answer) {
         score++;
       }
 
-      currentQuestion++;
+      currentQuestionIndex++;
 
-      if(currentQuestion < questions.length){
+      if (currentQuestionIndex < currentQuestions.length) {
         loadQuestion();
       } else {
         submitQuiz();
       }
     }
 
-    function submitQuiz(){
+    function submitQuiz() {
       clearInterval(timer);
+
+      if (
+        currentQuestions[currentQuestionIndex] &&
+        selectedAnswer !== null &&
+        currentQuestionIndex < currentQuestions.length
+      ) {
+        if (selectedAnswer === currentQuestions[currentQuestionIndex].answer) {
+          score++;
+        }
+      }
+
+      const percentage = Math.round((score / currentQuestions.length) * 100);
+      const student = getCurrentStudent();
+
+      const result = {
+        studentName: student.name,
+        studentEmail: student.email,
+        subject: currentQuizSubject,
+        score,
+        total: currentQuestions.length,
+        percentage,
+        date: new Date().toLocaleString()
+      };
+
+      const results = getResults();
+      results.unshift(result);
+      saveResults(results);
 
       document.getElementById("quizSection").classList.add("hidden");
       document.getElementById("resultSection").classList.remove("hidden");
-      document.getElementById("resultSubject").textContent = formatSubjectName(currentSubject);
+      document.getElementById("resultStudentName").textContent = student.name;
+      document.getElementById("resultSubject").textContent = currentQuizSubject;
+      document.getElementById("scoreLine").textContent = `You scored ${score} out of ${currentQuestions.length} (${percentage}%)`;
 
-      const percentage = Math.round((score / questions.length) * 100);
-      document.getElementById("scoreText").textContent =
-        `You scored ${score} out of ${questions.length} (${percentage}%)`;
+      let remark = "Keep practicing.";
+      if (percentage >= 80) remark = "Excellent performance!";
+      else if (percentage >= 50) remark = "Good job, keep improving.";
 
-      let remark = "";
-      if (percentage >= 80) {
-        remark = "Excellent performance!";
-      } else if (percentage >= 50) {
-        remark = "Good job, keep improving.";
+      document.getElementById("remarkLine").textContent = remark;
+      document.getElementById("certificateName").value = student.name;
+      renderStudentStats();
+    }
+
+    function cancelQuiz() {
+      clearInterval(timer);
+      backToStudentHome();
+    }
+
+    function restartExamFlow() {
+      backToStudentHome();
+    }
+
+    function backToStudentHome() {
+      document.getElementById("quizSection").classList.add("hidden");
+      document.getElementById("resultSection").classList.add("hidden");
+      document.getElementById("studentResultsSection").classList.add("hidden");
+      document.getElementById("studentDashboard").classList.remove("hidden");
+      document.getElementById("studentHome").classList.remove("hidden");
+      renderStudentStats();
+    }
+
+    function showStudentResults() {
+      const student = getCurrentStudent();
+      const results = getResults().filter(item => item.studentEmail === student.email);
+
+      let html = "";
+      if (results.length === 0) {
+        html = "<p>No results yet.</p>";
       } else {
-        remark = "Keep practicing, you will improve.";
+        html = `
+          <table>
+            <thead>
+              <tr>
+                <th>Subject</th>
+                <th>Score</th>
+                <th>Percentage</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody>
+        `;
+        results.forEach(item => {
+          html += `
+            <tr>
+              <td>${item.subject}</td>
+              <td>${item.score}/${item.total}</td>
+              <td>${item.percentage}%</td>
+              <td>${item.date}</td>
+            </tr>
+          `;
+        });
+        html += "</tbody></table>";
       }
 
-      document.getElementById("remarkText").textContent = remark;
+      document.getElementById("studentResultsTableWrap").innerHTML = html;
+      document.getElementById("studentDashboard").classList.add("hidden");
+      document.getElementById("studentHome").classList.add("hidden");
+      document.getElementById("quizSection").classList.add("hidden");
+      document.getElementById("resultSection").classList.add("hidden");
+      document.getElementById("studentResultsSection").classList.remove("hidden");
     }
 
-    function updateProgress(){
-      const percent = ((currentQuestion) / questions.length) * 100;
-      document.getElementById("progress").style.width = percent + "%";
+    function updateProgress() {
+      const percent = (currentQuestionIndex / currentQuestions.length) * 100;
+      document.getElementById("progressBar").style.width = percent + "%";
     }
 
-    function startTimer(){
+    function startTimer() {
       clearInterval(timer);
-      document.getElementById("time").textContent = timeLeft;
+      document.getElementById("timeLeft").textContent = timeLeft;
 
       timer = setInterval(() => {
         timeLeft--;
-        document.getElementById("time").textContent = timeLeft;
+        document.getElementById("timeLeft").textContent = timeLeft;
 
-        if(timeLeft <= 0){
+        if (timeLeft <= 0) {
           clearInterval(timer);
+          alert("Time is up!");
           submitQuiz();
         }
       }, 1000);
     }
 
-    function goHome(){
-      clearInterval(timer);
-      document.getElementById("quizSection").classList.add("hidden");
-      document.getElementById("resultSection").classList.add("hidden");
-      document.getElementById("subjectSection").classList.remove("hidden");
-    }
-
-    function restartQuiz(){
-      document.getElementById("studentName").value = "";
-      goHome();
-    }
-
-    function downloadCertificate(){
-      const name = document.getElementById("studentName").value.trim();
-      if(!name){
+    function downloadCertificate() {
+      const name = document.getElementById("certificateName").value.trim();
+      if (!name) {
         alert("Please enter your name first.");
         return;
       }
@@ -438,39 +906,359 @@
       ctx.fillStyle = "#ffffff";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      ctx.strokeStyle = "#1f4e79";
+      ctx.strokeStyle = "#174a7c";
       ctx.lineWidth = 8;
-      ctx.strokeRect(20, 20, canvas.width - 40, canvas.height - 40);
+      ctx.strokeRect(30, 30, canvas.width - 60, canvas.height - 60);
 
-      ctx.fillStyle = "#1f4e79";
+      ctx.fillStyle = "#174a7c";
       ctx.textAlign = "center";
 
-      ctx.font = "bold 40px Georgia";
-      ctx.fillText("Certificate of Completion", canvas.width / 2, 100);
+      ctx.font = "bold 46px Georgia";
+      ctx.fillText("Certificate of Achievement", canvas.width / 2, 120);
+
+      ctx.font = "26px Arial";
+      ctx.fillStyle = "#333";
+      ctx.fillText("This certifies that", canvas.width / 2, 200);
+
+      ctx.font = "bold 38px Arial";
+      ctx.fillStyle = "#000";
+      ctx.fillText(name, canvas.width / 2, 270);
 
       ctx.font = "24px Arial";
       ctx.fillStyle = "#333";
-      ctx.fillText("This certifies that", canvas.width / 2, 170);
+      ctx.fillText(`successfully completed the ${currentQuizSubject} test`, canvas.width / 2, 340);
+      ctx.fillText(`Score: ${score} / ${currentQuestions.length}`, canvas.width / 2, 385);
 
-      ctx.font = "bold 34px Arial";
-      ctx.fillStyle = "#000";
-      ctx.fillText(name, canvas.width / 2, 240);
-
-      ctx.font = "22px Arial";
-      ctx.fillStyle = "#333";
-      ctx.fillText(`successfully completed the ${formatSubjectName(currentSubject)} practice test`, canvas.width / 2, 300);
-
-      ctx.fillText(`Score: ${score} / ${questions.length}`, canvas.width / 2, 345);
-
-      ctx.font = "18px Arial";
-      ctx.fillText("Rural Exam Boost", canvas.width / 2, 410);
-      ctx.fillText(new Date().toLocaleDateString(), canvas.width / 2, 445);
+      ctx.font = "20px Arial";
+      ctx.fillText("Rural Exam Boost", canvas.width / 2, 470);
+      ctx.fillText(new Date().toLocaleDateString(), canvas.width / 2, 510);
 
       const link = document.createElement("a");
-      link.download = `${formatSubjectName(currentSubject)}_Certificate.png`;
+      link.download = `${currentQuizSubject}_Certificate.png`;
       link.href = canvas.toDataURL("image/png");
       link.click();
     }
+
+    function renderAdminDashboard() {
+      const subjects = getSubjects();
+      const questions = getQuestions();
+      const results = getResults();
+      const students = getStudents();
+
+      let totalQuestions = 0;
+      subjects.forEach(subject => totalQuestions += (questions[subject] || []).length);
+
+      document.getElementById("dashboardStats").innerHTML = `
+        <div class="stat-box"><h4>Subjects</h4><p>${subjects.length}</p></div>
+        <div class="stat-box"><h4>Questions</h4><p>${totalQuestions}</p></div>
+        <div class="stat-box"><h4>Students</h4><p>${students.length}</p></div>
+        <div class="stat-box"><h4>Results</h4><p>${results.length}</p></div>
+      `;
+    }
+
+    function addSubject() {
+      const input = document.getElementById("newSubjectName");
+      const newSubject = input.value.trim();
+
+      if (!newSubject) {
+        alert("Enter a subject name.");
+        return;
+      }
+
+      const subjects = getSubjects();
+      const questions = getQuestions();
+
+      if (subjects.includes(newSubject)) {
+        alert("Subject already exists.");
+        return;
+      }
+
+      subjects.push(newSubject);
+      questions[newSubject] = [];
+
+      saveSubjects(subjects);
+      saveQuestions(questions);
+
+      input.value = "";
+      renderSubjectBadges();
+      populateAdminSubjectSelect();
+      renderStudentSubjects();
+      renderAdminDashboard();
+    }
+
+    function renderSubjectBadges() {
+      const wrap = document.getElementById("subjectBadges");
+      wrap.innerHTML = "";
+
+      getSubjects().forEach(subject => {
+        const div = document.createElement("div");
+        div.className = "question-item";
+        div.innerHTML = `
+          <p><strong>${subject}</strong></p>
+          <button class="btn-red" onclick="deleteSubject('${subject.replace(/'/g, "\\'")}')">Delete Subject</button>
+        `;
+        wrap.appendChild(div);
+      });
+    }
+
+    function deleteSubject(subject) {
+      if (!confirm(`Delete ${subject} and all its questions?`)) return;
+
+      let subjects = getSubjects();
+      let questions = getQuestions();
+
+      subjects = subjects.filter(item => item !== subject);
+      delete questions[subject];
+
+      saveSubjects(subjects);
+      saveQuestions(questions);
+
+      renderSubjectBadges();
+      populateAdminSubjectSelect();
+      renderAdminQuestions();
+      renderStudentSubjects();
+      renderAdminDashboard();
+    }
+
+    function populateAdminSubjectSelect() {
+      const select = document.getElementById("adminQuestionSubject");
+      const current = select.value;
+      select.innerHTML = "";
+
+      getSubjects().forEach(subject => {
+        const option = document.createElement("option");
+        option.value = subject;
+        option.textContent = subject;
+        select.appendChild(option);
+      });
+
+      if (getSubjects().includes(current)) {
+        select.value = current;
+      }
+
+      updateCorrectAnswerSelect();
+    }
+
+    function updateCorrectAnswerSelect() {
+      const values = [
+        document.getElementById("optionA").value.trim(),
+        document.getElementById("optionB").value.trim(),
+        document.getElementById("optionC").value.trim(),
+        document.getElementById("optionD").value.trim()
+      ].filter(Boolean);
+
+      const select = document.getElementById("correctAnswer");
+      const oldValue = select.value;
+      select.innerHTML = `<option value="">Select correct answer</option>`;
+
+      values.forEach(value => {
+        const option = document.createElement("option");
+        option.value = value;
+        option.textContent = value;
+        select.appendChild(option);
+      });
+
+      if (values.includes(oldValue)) {
+        select.value = oldValue;
+      }
+    }
+
+    function saveQuestion() {
+      const subject = document.getElementById("adminQuestionSubject").value;
+      const question = document.getElementById("questionInput").value.trim();
+      const optionA = document.getElementById("optionA").value.trim();
+      const optionB = document.getElementById("optionB").value.trim();
+      const optionC = document.getElementById("optionC").value.trim();
+      const optionD = document.getElementById("optionD").value.trim();
+      const answer = document.getElementById("correctAnswer").value.trim();
+
+      if (!subject || !question || !optionA || !optionB || !optionC || !optionD || !answer) {
+        alert("Please complete all fields.");
+        return;
+      }
+
+      const questions = getQuestions();
+      const payload = {
+        question,
+        options: [optionA, optionB, optionC, optionD],
+        answer
+      };
+
+      if (!questions[subject]) questions[subject] = [];
+
+      if (editIndex === null) {
+        questions[subject].push(payload);
+      } else {
+        questions[subject][editIndex] = payload;
+      }
+
+      saveQuestions(questions);
+      clearQuestionForm();
+      renderAdminQuestions();
+      renderAdminDashboard();
+    }
+
+    function renderAdminQuestions() {
+      const subject = document.getElementById("adminQuestionSubject").value;
+      const wrap = document.getElementById("adminQuestionsList");
+      const questions = getQuestions();
+      const subjectQuestions = questions[subject] || [];
+      wrap.innerHTML = "";
+
+      if (!subject) {
+        wrap.innerHTML = "<p>No subject selected.</p>";
+        return;
+      }
+
+      if (subjectQuestions.length === 0) {
+        wrap.innerHTML = "<p>No questions added yet.</p>";
+        return;
+      }
+
+      subjectQuestions.forEach((item, index) => {
+        const div = document.createElement("div");
+        div.className = "question-item";
+        div.innerHTML = `
+          <p><strong>Q:</strong> ${item.question}</p>
+          <p>A. ${item.options[0]}</p>
+          <p>B. ${item.options[1]}</p>
+          <p>C. ${item.options[2]}</p>
+          <p>D. ${item.options[3]}</p>
+          <p><strong>Answer:</strong> ${item.answer}</p>
+          <button onclick="editQuestion(${index})">Edit</button>
+          <button class="btn-red btn-block" onclick="deleteQuestion(${index})">Delete</button>
+        `;
+        wrap.appendChild(div);
+      });
+    }
+
+    function editQuestion(index) {
+      const subject = document.getElementById("adminQuestionSubject").value;
+      const item = (getQuestions()[subject] || [])[index];
+      if (!item) return;
+
+      editIndex = index;
+      document.getElementById("questionInput").value = item.question;
+      document.getElementById("optionA").value = item.options[0];
+      document.getElementById("optionB").value = item.options[1];
+      document.getElementById("optionC").value = item.options[2];
+      document.getElementById("optionD").value = item.options[3];
+      updateCorrectAnswerSelect();
+      document.getElementById("correctAnswer").value = item.answer;
+      document.getElementById("cancelEditBtn").classList.remove("hidden");
+    }
+
+    function cancelEdit() {
+      clearQuestionForm();
+    }
+
+    function clearQuestionForm() {
+      editIndex = null;
+      document.getElementById("questionInput").value = "";
+      document.getElementById("optionA").value = "";
+      document.getElementById("optionB").value = "";
+      document.getElementById("optionC").value = "";
+      document.getElementById("optionD").value = "";
+      updateCorrectAnswerSelect();
+      document.getElementById("correctAnswer").value = "";
+      document.getElementById("cancelEditBtn").classList.add("hidden");
+    }
+
+    function deleteQuestion(index) {
+      const subject = document.getElementById("adminQuestionSubject").value;
+      const questions = getQuestions();
+
+      if (!confirm("Delete this question?")) return;
+
+      questions[subject].splice(index, 1);
+      saveQuestions(questions);
+      renderAdminQuestions();
+      renderAdminDashboard();
+    }
+
+    function renderStudentsTable() {
+      const students = getStudents();
+      const wrap = document.getElementById("studentsTableWrap");
+
+      if (students.length === 0) {
+        wrap.innerHTML = "<p>No registered students yet.</p>";
+        return;
+      }
+
+      let html = `
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Date Joined</th>
+            </tr>
+          </thead>
+          <tbody>
+      `;
+
+      students.forEach(student => {
+        html += `
+          <tr>
+            <td>${student.name}</td>
+            <td>${student.email}</td>
+            <td>${student.dateJoined}</td>
+          </tr>
+        `;
+      });
+
+      html += `</tbody></table>`;
+      wrap.innerHTML = html;
+    }
+
+    function renderResultsTable() {
+      const results = getResults();
+      const wrap = document.getElementById("resultsTableWrap");
+
+      if (results.length === 0) {
+        wrap.innerHTML = "<p>No student results yet.</p>";
+        return;
+      }
+
+      let html = `
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Subject</th>
+              <th>Score</th>
+              <th>Percent</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+      `;
+
+      results.forEach(item => {
+        html += `
+          <tr>
+            <td>${item.studentName}</td>
+            <td>${item.studentEmail}</td>
+            <td>${item.subject}</td>
+            <td>${item.score}/${item.total}</td>
+            <td>${item.percentage}%</td>
+            <td>${item.date}</td>
+          </tr>
+        `;
+      });
+
+      html += `</tbody></table>`;
+      wrap.innerHTML = html;
+    }
+
+    document.addEventListener("input", function(e) {
+      if (["optionA", "optionB", "optionC", "optionD"].includes(e.target.id)) {
+        updateCorrectAnswerSelect();
+      }
+    });
+
+    seedData();
   </script>
 </body>
 </html>
