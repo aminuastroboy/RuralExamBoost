@@ -3,1280 +3,595 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Rural Exam Boost Pro</title>
+  <title>RuralExamBoost CBT</title>
   <style>
-    *{
-      box-sizing:border-box;
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+      color: #222;
     }
-
-    body{
-      margin:0;
-      font-family:Arial, sans-serif;
-      background:#eef3f9;
-      color:#1d2a35;
+    .container {
+      max-width: 900px;
+      margin: 20px auto;
+      padding: 16px;
     }
-
-    .hidden{
-      display:none !important;
+    .card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+      margin-bottom: 18px;
     }
-
-    .container{
-      width:min(1100px, 94%);
-      margin:24px auto;
+    .hidden { display: none !important; }
+    h1, h2, h3 { margin-top: 0; }
+    input, select, button {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #d0d7e2;
+      margin-top: 8px;
+      margin-bottom: 12px;
+      font-size: 15px;
     }
-
-    .hero{
-      text-align:center;
-      padding:50px 20px;
+    button {
+      border: none;
+      background: #1f4e79;
+      color: white;
+      cursor: pointer;
     }
-
-    .hero h1{
-      color:#174a7c;
-      font-size:42px;
-      margin-bottom:10px;
+    button:hover { opacity: 0.95; }
+    .btn-green { background: #198754; }
+    .btn-gray { background: #6c757d; }
+    .btn-orange { background: #fd7e14; }
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      font-size: 14px;
+      margin-bottom: 12px;
     }
-
-    .card{
-      background:#fff;
-      border-radius:16px;
-      padding:22px;
-      box-shadow:0 6px 18px rgba(0,0,0,0.08);
-      margin-bottom:20px;
+    .question-nav {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(48px, 1fr));
+      gap: 8px;
+      margin-top: 12px;
     }
-
-    .header{
-      background:linear-gradient(135deg,#174a7c,#2c6aa6);
-      color:#fff;
-      border-radius:16px;
-      padding:22px;
-      margin-bottom:20px;
+    .nav-btn {
+      padding: 10px;
+      background: #e9eef5;
+      color: #111;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
     }
-
-    .header p{
-      margin:6px 0 0;
-      font-size:14px;
+    .nav-btn.answered {
+      background: #198754;
+      color: white;
     }
-
-    h2,h3,h4{
-      margin-top:0;
+    .nav-btn.current {
+      outline: 3px solid #1f4e79;
     }
-
-    .grid{
-      display:grid;
-      gap:16px;
+    .option {
+      background: #eef3f8;
+      color: #111;
+      text-align: left;
+      border: 1px solid #d8e0ea;
     }
-
-    .grid-2{
-      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    .option.selected {
+      background: #1f4e79;
+      color: white;
     }
-
-    .grid-3{
-      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    .action-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
     }
-
-    .stat-box{
-      background:#f7fbff;
-      border:1px solid #d8e6f3;
-      border-radius:14px;
-      padding:16px;
+    .progress-wrap {
+      width: 100%;
+      height: 10px;
+      background: #dde6f0;
+      border-radius: 999px;
+      overflow: hidden;
+      margin: 12px 0 16px;
     }
-
-    .stat-box h4{
-      margin:0 0 8px;
-      color:#174a7c;
-      font-size:14px;
+    .progress {
+      height: 100%;
+      width: 0%;
+      background: #198754;
+      transition: width 0.3s ease;
     }
-
-    .stat-box p{
-      margin:0;
-      font-size:26px;
-      font-weight:bold;
-    }
-
-    button{
-      background:#174a7c;
-      color:#fff;
-      border:none;
-      border-radius:10px;
-      padding:12px 14px;
-      cursor:pointer;
-      font-size:15px;
-    }
-
-    button:hover{
-      opacity:0.95;
-    }
-
-    .btn-green{ background:#198754; }
-    .btn-red{ background:#dc3545; }
-    .btn-gray{ background:#6c757d; }
-    .btn-orange{ background:#fd7e14; }
-    .btn-block{
-      width:100%;
-      margin-top:10px;
-    }
-
-    input, select, textarea{
-      width:100%;
-      padding:12px;
-      border:1px solid #cfd8e3;
-      border-radius:10px;
-      margin-top:8px;
-      margin-bottom:12px;
-      font-size:15px;
-    }
-
-    .topbar{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      flex-wrap:wrap;
-      gap:10px;
-      font-size:14px;
-      margin-bottom:14px;
-    }
-
-    .progress-bar{
-      width:100%;
-      height:10px;
-      background:#dbe7f3;
-      border-radius:999px;
-      overflow:hidden;
-      margin:14px 0 18px;
-    }
-
-    .progress{
-      height:100%;
-      width:0%;
-      background:#198754;
-      transition:width 0.3s ease;
-    }
-
-    .option{
-      display:block;
-      width:100%;
-      text-align:left;
-      margin-bottom:10px;
-      background:#eef4fb;
-      color:#222;
-      border:1px solid #d5e1ef;
-    }
-
-    .option.selected{
-      background:#174a7c;
-      color:#fff;
-    }
-
-    .question-item{
-      border:1px solid #e1e6ee;
-      border-radius:12px;
-      padding:14px;
-      margin-bottom:12px;
-      background:#fafbfd;
-    }
-
-    .question-item p{
-      margin:6px 0;
-    }
-
-    .tabs{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-bottom:16px;
-    }
-
-    .subject-list button{
-      width:100%;
-      margin-bottom:10px;
-    }
-
-    table{
-      width:100%;
-      border-collapse:collapse;
-      margin-top:10px;
-      background:#fff;
-    }
-
-    th, td{
-      border:1px solid #e1e6ee;
-      padding:10px;
-      text-align:left;
-      font-size:14px;
-    }
-
-    th{
-      background:#f1f5fa;
-    }
-
-    #certificateBox{
-      margin-top:15px;
-      padding:15px;
-      border:1px solid #d8e6f3;
-      border-radius:12px;
-      background:#f8fbff;
-    }
-
-    footer{
-      text-align:center;
-      color:#666;
-      font-size:12px;
-      margin:24px 0;
+    .score-box {
+      font-size: 18px;
+      line-height: 1.7;
     }
   </style>
 </head>
 <body>
+  <div class="container">
+    <div class="card" id="setupScreen">
+      <h1>RuralExamBoost CBT</h1>
+      <p>SS3 Nigerian-level practice exam</p>
 
-  <div id="landingPage" class="container hero">
-    <h1>Rural Exam Boost 🎓</h1>
-    <p>Low-data multi-subject exam practice platform</p>
+      <label>Student Name</label>
+      <input id="studentName" placeholder="Enter your full name" />
 
-    <div class="card">
-      <h3>Problem</h3>
-      <p>Many students in rural communities lack access to quality exam practice tools and affordable revision support.</p>
+      <label>Select Subject</label>
+      <select id="subjectSelect">
+        <option value="">Choose a subject</option>
+        <option value="english">English Language</option>
+        <option value="mathematics">Mathematics</option>
+        <option value="biology">Biology</option>
+        <option value="chemistry">Chemistry</option>
+        <option value="physics">Physics</option>
+        <option value="economics">Economics</option>
+        <option value="government">Government</option>
+        <option value="mixed">Mixed SS3 CBT</option>
+      </select>
 
-      <h3>Solution</h3>
-      <p>Rural Exam Boost provides a simple web app where students can register, practice questions by subject, get instant scores, and track performance.</p>
-
-      <h3>Impact</h3>
-      <p>It supports exam preparation, improves confidence, and expands access to learning opportunities.</p>
-
-      <div class="grid grid-2">
-        <button class="btn-block" onclick="openStudentAuth()">Student Portal</button>
-        <button class="btn-block btn-green" onclick="openAdminLogin()">Admin Portal</button>
-      </div>
-    </div>
-  </div>
-
-  <div id="studentAuthPage" class="container hidden">
-    <div class="header">
-      <h2>Student Portal</h2>
-      <p>Register or login to continue</p>
+      <button onclick="startExam()">Start CBT Exam</button>
     </div>
 
-    <div class="grid grid-2">
-      <div class="card">
-        <h3>Register</h3>
-        <input id="registerName" placeholder="Full Name">
-        <input id="registerEmail" type="email" placeholder="Email">
-        <input id="registerPassword" type="password" placeholder="Password">
-        <button class="btn-block" onclick="registerStudent()">Create Account</button>
-      </div>
-
-      <div class="card">
-        <h3>Login</h3>
-        <input id="loginEmail" type="email" placeholder="Email">
-        <input id="loginPassword" type="password" placeholder="Password">
-        <button class="btn-block btn-green" onclick="loginStudent()">Login</button>
-      </div>
-    </div>
-
-    <button class="btn-gray btn-block" onclick="goLanding()">Back Home</button>
-  </div>
-
-  <div id="studentApp" class="container hidden">
-    <div class="header">
-      <h2>Rural Exam Boost 🎓</h2>
-      <p>Welcome, <b id="studentWelcomeName"></b></p>
-    </div>
-
-    <div id="studentDashboard" class="card">
-      <h3>Student Dashboard</h3>
-      <div class="grid grid-3" id="studentStats"></div>
-    </div>
-
-    <div id="studentHome" class="card">
-      <h3>Select a Subject</h3>
-      <div id="studentSubjects" class="subject-list"></div>
-      <div class="grid grid-2">
-        <button class="btn-orange" onclick="showStudentResults()">My Results</button>
-        <button class="btn-gray" onclick="logoutStudent()">Logout</button>
-      </div>
-    </div>
-
-    <div id="quizSection" class="card hidden">
+    <div class="card hidden" id="examScreen">
       <div class="topbar">
-        <div><strong>Subject:</strong> <span id="currentSubject"></span></div>
-        <div><strong>Question:</strong> <span id="counter"></span></div>
-        <div><strong>Time Left:</strong> <span id="timeLeft"></span>s</div>
+        <div><strong>Name:</strong> <span id="displayName"></span></div>
+        <div><strong>Subject:</strong> <span id="displaySubject"></span></div>
+        <div><strong>Time Left:</strong> <span id="timeLeft"></span></div>
       </div>
 
-      <div class="progress-bar">
+      <div class="progress-wrap">
         <div class="progress" id="progressBar"></div>
       </div>
 
+      <p><strong>Question <span id="questionNumber"></span></strong></p>
       <h3 id="questionText"></h3>
+
       <div id="optionsBox"></div>
 
-      <div class="grid grid-2">
-        <button onclick="nextQuestion()">Next Question</button>
-        <button class="btn-green" onclick="submitQuiz()">Submit Quiz</button>
+      <div class="action-row">
+        <button class="btn-gray" onclick="prevQuestion()">Previous</button>
+        <button class="btn-orange" onclick="nextQuestion()">Next</button>
+        <button class="btn-green" onclick="submitExam()">Submit</button>
       </div>
 
-      <button class="btn-gray btn-block" onclick="cancelQuiz()">Back to Subjects</button>
+      <div class="question-nav" id="questionNav"></div>
     </div>
 
-    <div id="resultSection" class="card hidden">
-      <h3>Exam Result</h3>
-      <p><strong>Student:</strong> <span id="resultStudentName"></span></p>
-      <p><strong>Subject:</strong> <span id="resultSubject"></span></p>
-      <p id="scoreLine"></p>
-      <p id="remarkLine"></p>
-
-      <div id="certificateBox" class="hidden">
-        <input id="certificateName" placeholder="Enter your name for certificate">
-        <button onclick="downloadCertificate()">Download Pass Certificate</button>
+    <div class="card hidden" id="resultScreen">
+      <h2>CBT Result</h2>
+      <div class="score-box">
+        <p><strong>Name:</strong> <span id="resultName"></span></p>
+        <p><strong>Subject:</strong> <span id="resultSubject"></span></p>
+        <p><strong>Score:</strong> <span id="resultScore"></span></p>
+        <p><strong>Percentage:</strong> <span id="resultPercent"></span></p>
+        <p><strong>Remark:</strong> <span id="resultRemark"></span></p>
       </div>
-
-      <button class="btn-green btn-block" onclick="restartExamFlow()">Try Another Subject</button>
-    </div>
-
-    <div id="studentResultsSection" class="card hidden">
-      <h3>My Results</h3>
-      <div id="studentResultsTableWrap"></div>
-      <button class="btn-gray btn-block" onclick="backToStudentHome()">Back</button>
-    </div>
-
-    <canvas id="certificateCanvas" width="1000" height="600" class="hidden"></canvas>
-  </div>
-
-  <div id="adminLoginPage" class="container hidden">
-    <div class="header">
-      <h2>Admin Login</h2>
-      <p>Manage subjects, questions, students, and results</p>
-    </div>
-
-    <div class="card">
-      <input id="adminUsername" placeholder="Username">
-      <input id="adminPassword" type="password" placeholder="Password">
-      <button class="btn-block" onclick="loginAdmin()">Login</button>
-      <button class="btn-gray btn-block" onclick="goLanding()">Back Home</button>
-      <p><small>Default login: <b>admin</b> / <b>admin123</b></small></p>
+      <button onclick="restartExam()">Take Another Exam</button>
     </div>
   </div>
-
-  <div id="adminApp" class="container hidden">
-    <div class="header">
-      <h2>Rural Exam Boost Admin Panel</h2>
-      <p>Full management dashboard</p>
-    </div>
-
-    <div class="tabs">
-      <button onclick="showAdminTab('dashboardTab')">Dashboard</button>
-      <button onclick="showAdminTab('subjectsTab')">Subjects</button>
-      <button onclick="showAdminTab('questionsTab')">Questions</button>
-      <button onclick="showAdminTab('studentsTab')">Students</button>
-      <button onclick="showAdminTab('resultsTab')">Results</button>
-      <button class="btn-red" onclick="logoutAdmin()">Logout</button>
-    </div>
-
-    <div id="dashboardTab" class="card">
-      <h3>Admin Dashboard</h3>
-      <div class="grid grid-3" id="dashboardStats"></div>
-    </div>
-
-    <div id="subjectsTab" class="card hidden">
-      <h3>Manage Subjects</h3>
-      <input id="newSubjectName" placeholder="Enter new subject name">
-      <button onclick="addSubject()">Add Subject</button>
-      <div id="subjectBadges" style="margin-top:15px;"></div>
-    </div>
-
-    <div id="questionsTab" class="card hidden">
-      <h3>Add / Edit Questions</h3>
-
-      <label>Select Subject</label>
-      <select id="adminQuestionSubject" onchange="renderAdminQuestions()"></select>
-
-      <input id="questionInput" placeholder="Enter question">
-      <input id="optionA" placeholder="Option A">
-      <input id="optionB" placeholder="Option B">
-      <input id="optionC" placeholder="Option C">
-      <input id="optionD" placeholder="Option D">
-
-      <label>Correct Answer</label>
-      <select id="correctAnswer">
-        <option value="">Select correct answer</option>
-      </select>
-
-      <button onclick="saveQuestion()">Save Question</button>
-      <button id="cancelEditBtn" class="btn-gray btn-block hidden" onclick="cancelEdit()">Cancel Edit</button>
-
-      <hr style="margin:20px 0">
-
-      <h4>Saved Questions</h4>
-      <div id="adminQuestionsList"></div>
-    </div>
-
-    <div id="studentsTab" class="card hidden">
-      <h3>Registered Students</h3>
-      <div id="studentsTableWrap"></div>
-    </div>
-
-    <div id="resultsTab" class="card hidden">
-      <h3>All Results</h3>
-      <div id="resultsTableWrap"></div>
-    </div>
-  </div>
-
-  <footer>© 2026 Rural Exam Boost Pro</footer>
 
   <script>
-    const SUBJECTS_KEY = "reb_subjects";
-    const QUESTIONS_KEY = "reb_questions";
-    const RESULTS_KEY = "reb_results";
-    const STUDENTS_KEY = "reb_students";
-    const CURRENT_STUDENT_KEY = "reb_current_student";
-    const ADMIN_USER = "admin";
-    const ADMIN_PASS = "admin123";
+    const questionBank = {
+      english: [
+        {
+          question: "Choose the option nearest in meaning to the underlined word: The teacher's explanation was lucid.",
+          options: ["Confusing", "Clear", "Lengthy", "Harsh"],
+          answer: "Clear"
+        },
+        {
+          question: "Choose the correct sentence.",
+          options: [
+            "She go to school every day.",
+            "She goes to school every day.",
+            "She going to school every day.",
+            "She gone to school every day."
+          ],
+          answer: "She goes to school every day."
+        },
+        {
+          question: "A group of students is called a?",
+          options: ["Flock", "Team", "Class", "Crowd"],
+          answer: "Class"
+        },
+        {
+          question: "Choose the antonym of 'scarcity'.",
+          options: ["Shortage", "Lack", "Abundance", "Need"],
+          answer: "Abundance"
+        },
+        {
+          question: "A passage discussing dangers of cutting trees is mainly about?",
+          options: ["Transportation", "Deforestation", "Cooking", "Mining"],
+          answer: "Deforestation"
+        }
+      ],
+      mathematics: [
+        {
+          question: "Solve: 2x + 5 = 17",
+          options: ["5", "6", "7", "8"],
+          answer: "6"
+        },
+        {
+          question: "Find the area of a triangle with base 10cm and height 8cm.",
+          options: ["18 cm²", "40 cm²", "80 cm²", "20 cm²"],
+          answer: "40 cm²"
+        },
+        {
+          question: "If y = 3 and x = 4, find xy.",
+          options: ["7", "12", "1", "16"],
+          answer: "12"
+        },
+        {
+          question: "What is the square root of 81?",
+          options: ["8", "7", "9", "6"],
+          answer: "9"
+        },
+        {
+          question: "Simplify 15 ÷ 3 × 2.",
+          options: ["10", "5", "6", "12"],
+          answer: "10"
+        }
+      ],
+      biology: [
+        {
+          question: "Which of the following is a producer?",
+          options: ["Goat", "Lion", "Grass", "Human"],
+          answer: "Grass"
+        },
+        {
+          question: "The organ responsible for filtering blood is the?",
+          options: ["Heart", "Liver", "Kidney", "Lung"],
+          answer: "Kidney"
+        },
+        {
+          question: "Photosynthesis occurs mainly in the?",
+          options: ["Root", "Stem", "Leaf", "Flower"],
+          answer: "Leaf"
+        },
+        {
+          question: "The basic unit of life is the?",
+          options: ["Tissue", "Cell", "Organ", "Blood"],
+          answer: "Cell"
+        },
+        {
+          question: "Which of these is a vertebrate?",
+          options: ["Earthworm", "Snail", "Fish", "Cockroach"],
+          answer: "Fish"
+        }
+      ],
+      chemistry: [
+        {
+          question: "Water is made up of?",
+          options: ["Oxygen only", "Hydrogen only", "Hydrogen and Oxygen", "Nitrogen and Oxygen"],
+          answer: "Hydrogen and Oxygen"
+        },
+        {
+          question: "Which element is a noble gas?",
+          options: ["Oxygen", "Neon", "Sodium", "Chlorine"],
+          answer: "Neon"
+        },
+        {
+          question: "The chemical symbol for sodium is?",
+          options: ["So", "Sd", "Na", "Sm"],
+          answer: "Na"
+        },
+        {
+          question: "An acid turns blue litmus paper to?",
+          options: ["Green", "Red", "White", "Black"],
+          answer: "Red"
+        },
+        {
+          question: "The smallest particle of an element is the?",
+          options: ["Molecule", "Atom", "Cell", "Ion only"],
+          answer: "Atom"
+        }
+      ],
+      physics: [
+        {
+          question: "Speed = Distance / ?",
+          options: ["Force", "Work", "Time", "Mass"],
+          answer: "Time"
+        },
+        {
+          question: "Unit of electric current is?",
+          options: ["Volt", "Ampere", "Watt", "Ohm"],
+          answer: "Ampere"
+        },
+        {
+          question: "The force pulling objects toward the earth is?",
+          options: ["Friction", "Gravity", "Tension", "Pressure"],
+          answer: "Gravity"
+        },
+        {
+          question: "A device used to measure temperature is?",
+          options: ["Barometer", "Thermometer", "Ammeter", "Hydrometer"],
+          answer: "Thermometer"
+        },
+        {
+          question: "The SI unit of force is?",
+          options: ["Joule", "Newton", "Pascal", "Meter"],
+          answer: "Newton"
+        }
+      ],
+      economics: [
+        {
+          question: "The law of demand states that?",
+          options: [
+            "As price rises, demand rises",
+            "As price rises, demand falls",
+            "Demand is constant",
+            "Supply falls always"
+          ],
+          answer: "As price rises, demand falls"
+        },
+        {
+          question: "Money used to buy goods and services is called?",
+          options: ["Capital", "Labour", "Currency", "Revenue"],
+          answer: "Currency"
+        },
+        {
+          question: "A market where there is only one seller is?",
+          options: ["Perfect market", "Monopoly", "Duopoly", "Oligopoly"],
+          answer: "Monopoly"
+        },
+        {
+          question: "Human effort used in production is called?",
+          options: ["Labour", "Capital", "Land", "Demand"],
+          answer: "Labour"
+        },
+        {
+          question: "Government income from citizens is mainly through?",
+          options: ["Punishment", "Taxation", "Loans only", "Imports only"],
+          answer: "Taxation"
+        }
+      ],
+      government: [
+        {
+          question: "Democracy is best defined as?",
+          options: [
+            "Government by soldiers",
+            "Government of the people, by the people, for the people",
+            "Government by kings",
+            "Government without laws"
+          ],
+          answer: "Government of the people, by the people, for the people"
+        },
+        {
+          question: "The arm of government that makes laws is the?",
+          options: ["Executive", "Legislature", "Judiciary", "Civil service"],
+          answer: "Legislature"
+        },
+        {
+          question: "Nigeria operates a?",
+          options: ["Monarchy", "Military system", "Federal system", "Communal system"],
+          answer: "Federal system"
+        },
+        {
+          question: "Voting rights in a democracy are called?",
+          options: ["Franchise", "Mandate", "Authority", "Rule"],
+          answer: "Franchise"
+        },
+        {
+          question: "The constitution is?",
+          options: [
+            "A school rule book",
+            "A book of stories",
+            "The supreme law of the land",
+            "A tax record"
+          ],
+          answer: "The supreme law of the land"
+        }
+      ]
+    };
 
-    let editIndex = null;
-    let currentQuizSubject = "";
-    let currentQuestions = [];
-    let currentQuestionIndex = 0;
-    let selectedAnswer = null;
-    let score = 0;
+    let activeQuestions = [];
+    let answers = [];
+    let currentIndex = 0;
     let timer = null;
-    let timeLeft = 60;
-    let answeredCurrentQuestion = false;
-    let quizSubmitted = false;
+    let timeRemaining = 0;
+    let student = "";
+    let subject = "";
 
-    function seedData() {
-      if (!localStorage.getItem(SUBJECTS_KEY)) {
-        localStorage.setItem(SUBJECTS_KEY, JSON.stringify(["Mathematics", "English", "Commerce"]));
-      }
-
-      if (!localStorage.getItem(QUESTIONS_KEY)) {
-        localStorage.setItem(QUESTIONS_KEY, JSON.stringify({
-          Mathematics: [
-            { question: "5 × 6 = ?", options: ["11", "30", "25", "56"], answer: "30" },
-            { question: "12 ÷ 3 = ?", options: ["2", "4", "6", "3"], answer: "4" },
-            { question: "9² = ?", options: ["18", "81", "27", "72"], answer: "81" }
-          ],
-          English: [
-            { question: "Synonym of Happy?", options: ["Sad", "Joyful", "Angry", "Cold"], answer: "Joyful" },
-            { question: "Correct spelling?", options: ["Recieve", "Receive", "Receve", "Recive"], answer: "Receive" },
-            { question: "Opposite of Hot?", options: ["Warm", "Cold", "Heat", "Boil"], answer: "Cold" }
-          ],
-          Commerce: [
-            { question: "Manufacturers can produce goods ahead of demand because of?", options: ["Advertising", "Exportation", "Transportation", "Warehousing"], answer: "Warehousing" },
-            { question: "A method of guaranteeing overseas payment is?", options: ["Certified cheque", "Bill of exchange", "Letter of credit", "Bank draft"], answer: "Letter of credit" }
-          ]
-        }));
-      }
-
-      if (!localStorage.getItem(RESULTS_KEY)) {
-        localStorage.setItem(RESULTS_KEY, JSON.stringify([]));
-      }
-
-      if (!localStorage.getItem(STUDENTS_KEY)) {
-        localStorage.setItem(STUDENTS_KEY, JSON.stringify([]));
-      }
+    function getMixedQuestions() {
+      return [
+        questionBank.english[0],
+        questionBank.mathematics[0],
+        questionBank.biology[0],
+        questionBank.chemistry[0],
+        questionBank.physics[0],
+        questionBank.economics[0],
+        questionBank.government[0],
+        questionBank.english[1],
+        questionBank.mathematics[1],
+        questionBank.biology[1]
+      ];
     }
 
-    function getSubjects() {
-      return JSON.parse(localStorage.getItem(SUBJECTS_KEY)) || [];
-    }
+    function startExam() {
+      student = document.getElementById("studentName").value.trim();
+      subject = document.getElementById("subjectSelect").value;
 
-    function saveSubjects(data) {
-      localStorage.setItem(SUBJECTS_KEY, JSON.stringify(data));
-    }
-
-    function getQuestions() {
-      return JSON.parse(localStorage.getItem(QUESTIONS_KEY)) || {};
-    }
-
-    function saveQuestions(data) {
-      localStorage.setItem(QUESTIONS_KEY, JSON.stringify(data));
-    }
-
-    function getResults() {
-      return JSON.parse(localStorage.getItem(RESULTS_KEY)) || [];
-    }
-
-    function saveResults(data) {
-      localStorage.setItem(RESULTS_KEY, JSON.stringify(data));
-    }
-
-    function getStudents() {
-      return JSON.parse(localStorage.getItem(STUDENTS_KEY)) || [];
-    }
-
-    function saveStudents(data) {
-      localStorage.setItem(STUDENTS_KEY, JSON.stringify(data));
-    }
-
-    function getCurrentStudent() {
-      return JSON.parse(localStorage.getItem(CURRENT_STUDENT_KEY));
-    }
-
-    function setCurrentStudent(student) {
-      localStorage.setItem(CURRENT_STUDENT_KEY, JSON.stringify(student));
-    }
-
-    function clearCurrentStudent() {
-      localStorage.removeItem(CURRENT_STUDENT_KEY);
-    }
-
-    function hideAllPages() {
-      ["landingPage", "studentAuthPage", "studentApp", "adminLoginPage", "adminApp"]
-        .forEach(id => document.getElementById(id).classList.add("hidden"));
-    }
-
-    function goLanding() {
-      clearInterval(timer);
-      hideAllPages();
-      document.getElementById("landingPage").classList.remove("hidden");
-    }
-
-    function openStudentAuth() {
-      hideAllPages();
-      document.getElementById("studentAuthPage").classList.remove("hidden");
-    }
-
-    function openAdminLogin() {
-      hideAllPages();
-      document.getElementById("adminLoginPage").classList.remove("hidden");
-    }
-
-    function registerStudent() {
-      const name = document.getElementById("registerName").value.trim();
-      const email = document.getElementById("registerEmail").value.trim().toLowerCase();
-      const password = document.getElementById("registerPassword").value.trim();
-
-      if (!name || !email || !password) {
-        alert("Please complete all registration fields.");
+      if (!student || !subject) {
+        alert("Please enter your name and select a subject.");
         return;
       }
 
-      const students = getStudents();
-      if (students.some(student => student.email === email)) {
-        alert("An account with this email already exists.");
-        return;
-      }
+      activeQuestions = subject === "mixed"
+        ? getMixedQuestions()
+        : [...questionBank[subject]];
 
-      const student = {
-        id: Date.now(),
-        name,
-        email,
-        password,
-        dateJoined: new Date().toLocaleString()
-      };
+      activeQuestions = shuffleArray(activeQuestions);
+      activeQuestions = activeQuestions.map(q => ({
+        ...q,
+        options: shuffleArray([...q.options])
+      }));
 
-      students.push(student);
-      saveStudents(students);
-      alert("Registration successful. You can now login.");
+      answers = new Array(activeQuestions.length).fill(null);
+      currentIndex = 0;
+      timeRemaining = activeQuestions.length * 45;
 
-      document.getElementById("registerName").value = "";
-      document.getElementById("registerEmail").value = "";
-      document.getElementById("registerPassword").value = "";
-    }
+      document.getElementById("setupScreen").classList.add("hidden");
+      document.getElementById("resultScreen").classList.add("hidden");
+      document.getElementById("examScreen").classList.remove("hidden");
 
-    function loginStudent() {
-      const email = document.getElementById("loginEmail").value.trim().toLowerCase();
-      const password = document.getElementById("loginPassword").value.trim();
-
-      const student = getStudents().find(user => user.email === email && user.password === password);
-
-      if (!student) {
-        alert("Invalid student login.");
-        return;
-      }
-
-      setCurrentStudent(student);
-      openStudentApp();
-    }
-
-    function openStudentApp() {
-      const student = getCurrentStudent();
-      if (!student) {
-        openStudentAuth();
-        return;
-      }
-
-      hideAllPages();
-      document.getElementById("studentApp").classList.remove("hidden");
-      document.getElementById("studentWelcomeName").textContent = student.name;
-
-      document.getElementById("studentDashboard").classList.remove("hidden");
-      document.getElementById("studentHome").classList.remove("hidden");
-      document.getElementById("quizSection").classList.add("hidden");
-      document.getElementById("resultSection").classList.add("hidden");
-      document.getElementById("studentResultsSection").classList.add("hidden");
-
-      renderStudentSubjects();
-      renderStudentStats();
-    }
-
-    function logoutStudent() {
-      clearCurrentStudent();
-      goLanding();
-    }
-
-    function loginAdmin() {
-      const username = document.getElementById("adminUsername").value.trim();
-      const password = document.getElementById("adminPassword").value.trim();
-
-      if (username === ADMIN_USER && password === ADMIN_PASS) {
-        hideAllPages();
-        document.getElementById("adminApp").classList.remove("hidden");
-        showAdminTab("dashboardTab");
-      } else {
-        alert("Invalid admin login.");
-      }
-    }
-
-    function logoutAdmin() {
-      document.getElementById("adminUsername").value = "";
-      document.getElementById("adminPassword").value = "";
-      goLanding();
-    }
-
-    function showAdminTab(tabId) {
-      ["dashboardTab", "subjectsTab", "questionsTab", "studentsTab", "resultsTab"].forEach(id => {
-        document.getElementById(id).classList.add("hidden");
-      });
-
-      document.getElementById(tabId).classList.remove("hidden");
-
-      if (tabId === "dashboardTab") renderAdminDashboard();
-      if (tabId === "subjectsTab") renderSubjectBadges();
-      if (tabId === "questionsTab") {
-        populateAdminSubjectSelect();
-        renderAdminQuestions();
-      }
-      if (tabId === "studentsTab") renderStudentsTable();
-      if (tabId === "resultsTab") renderResultsTable();
-    }
-
-    function renderStudentStats() {
-      const student = getCurrentStudent();
-      const results = getResults().filter(item => item.studentEmail === student.email);
-
-      const totalExams = results.length;
-      const averageScore = totalExams
-        ? Math.round(results.reduce((sum, item) => sum + item.percentage, 0) / totalExams)
-        : 0;
-      const passed = results.filter(item => item.percentage >= 50).length;
-
-      document.getElementById("studentStats").innerHTML = `
-        <div class="stat-box"><h4>Total Exams</h4><p>${totalExams}</p></div>
-        <div class="stat-box"><h4>Average Score</h4><p>${averageScore}%</p></div>
-        <div class="stat-box"><h4>Passed</h4><p>${passed}</p></div>
-      `;
-    }
-
-    function renderStudentSubjects() {
-      const wrap = document.getElementById("studentSubjects");
-      wrap.innerHTML = "";
-
-      getSubjects().forEach(subject => {
-        const btn = document.createElement("button");
-        btn.textContent = subject;
-        btn.onclick = () => startQuiz(subject);
-        wrap.appendChild(btn);
-      });
-    }
-
-    function startQuiz(subject) {
-      const allQuestions = getQuestions();
-      const subjectQuestions = allQuestions[subject] || [];
-
-      if (subjectQuestions.length === 0) {
-        alert("No questions in this subject yet.");
-        return;
-      }
-
-      currentQuizSubject = subject;
-      currentQuestions = [...subjectQuestions];
-      currentQuestionIndex = 0;
-      selectedAnswer = null;
-      score = 0;
-      timeLeft = Math.max(subjectQuestions.length * 20, 30);
-      answeredCurrentQuestion = false;
-      quizSubmitted = false;
-
-      document.getElementById("studentHome").classList.add("hidden");
-      document.getElementById("studentDashboard").classList.add("hidden");
-      document.getElementById("studentResultsSection").classList.add("hidden");
-      document.getElementById("resultSection").classList.add("hidden");
-      document.getElementById("quizSection").classList.remove("hidden");
-      document.getElementById("currentSubject").textContent = subject;
+      document.getElementById("displayName").textContent = student;
+      document.getElementById("displaySubject").textContent = formatSubject(subject);
 
       startTimer();
-      loadQuestion();
+      renderQuestion();
+      renderQuestionNav();
     }
 
-    function loadQuestion() {
-      if (currentQuestionIndex >= currentQuestions.length) {
-        submitQuiz();
-        return;
-      }
+    function formatSubject(value) {
+      const names = {
+        english: "English Language",
+        mathematics: "Mathematics",
+        biology: "Biology",
+        chemistry: "Chemistry",
+        physics: "Physics",
+        economics: "Economics",
+        government: "Government",
+        mixed: "Mixed SS3 CBT"
+      };
+      return names[value] || value;
+    }
 
-      const q = currentQuestions[currentQuestionIndex];
-      document.getElementById("counter").textContent = `${currentQuestionIndex + 1} of ${currentQuestions.length}`;
+    function renderQuestion() {
+      const q = activeQuestions[currentIndex];
+      document.getElementById("questionNumber").textContent = `${currentIndex + 1} of ${activeQuestions.length}`;
       document.getElementById("questionText").textContent = q.question;
 
       const optionsBox = document.getElementById("optionsBox");
       optionsBox.innerHTML = "";
 
-      selectedAnswer = null;
-      answeredCurrentQuestion = false;
-
       q.options.forEach(option => {
         const btn = document.createElement("button");
         btn.className = "option";
         btn.textContent = option;
-        btn.onclick = () => {
-          selectedAnswer = option;
-          document.querySelectorAll(".option").forEach(el => el.classList.remove("selected"));
+
+        if (answers[currentIndex] === option) {
           btn.classList.add("selected");
+        }
+
+        btn.onclick = () => {
+          answers[currentIndex] = option;
+          renderQuestion();
+          renderQuestionNav();
+          updateProgress();
         };
+
         optionsBox.appendChild(btn);
       });
 
       updateProgress();
+      renderQuestionNav();
     }
 
-    function markCurrentQuestion() {
-      if (answeredCurrentQuestion) return;
+    function renderQuestionNav() {
+      const nav = document.getElementById("questionNav");
+      nav.innerHTML = "";
 
-      const current = currentQuestions[currentQuestionIndex];
-      if (current && selectedAnswer === current.answer) {
-        score++;
-      }
+      activeQuestions.forEach((_, index) => {
+        const btn = document.createElement("button");
+        btn.textContent = index + 1;
+        btn.className = "nav-btn";
 
-      answeredCurrentQuestion = true;
+        if (answers[index] !== null) btn.classList.add("answered");
+        if (index === currentIndex) btn.classList.add("current");
+
+        btn.onclick = () => {
+          currentIndex = index;
+          renderQuestion();
+        };
+
+        nav.appendChild(btn);
+      });
     }
 
     function nextQuestion() {
-      if (selectedAnswer === null) {
-        alert("Please select an answer first.");
-        return;
-      }
-
-      markCurrentQuestion();
-      currentQuestionIndex++;
-
-      if (currentQuestionIndex < currentQuestions.length) {
-        loadQuestion();
-      } else {
-        submitQuiz();
+      if (currentIndex < activeQuestions.length - 1) {
+        currentIndex++;
+        renderQuestion();
       }
     }
 
-    function submitQuiz() {
-      if (quizSubmitted) return;
-      quizSubmitted = true;
-
-      clearInterval(timer);
-
-      if (currentQuestionIndex < currentQuestions.length && selectedAnswer !== null) {
-        markCurrentQuestion();
+    function prevQuestion() {
+      if (currentIndex > 0) {
+        currentIndex--;
+        renderQuestion();
       }
-
-      const percentage = currentQuestions.length
-        ? Math.round((score / currentQuestions.length) * 100)
-        : 0;
-
-      const student = getCurrentStudent();
-
-      const result = {
-        studentName: student.name,
-        studentEmail: student.email,
-        subject: currentQuizSubject,
-        score: score,
-        total: currentQuestions.length,
-        percentage: percentage,
-        date: new Date().toLocaleString()
-      };
-
-      const results = getResults();
-      results.unshift(result);
-      saveResults(results);
-
-      document.getElementById("quizSection").classList.add("hidden");
-      document.getElementById("resultSection").classList.remove("hidden");
-      document.getElementById("resultStudentName").textContent = student.name;
-      document.getElementById("resultSubject").textContent = currentQuizSubject;
-      document.getElementById("scoreLine").textContent = `You scored ${score} out of ${currentQuestions.length} (${percentage}%)`;
-
-      const certificateBox = document.getElementById("certificateBox");
-
-      if (percentage >= 50) {
-        document.getElementById("remarkLine").textContent = "Congratulations, you passed!";
-        certificateBox.classList.remove("hidden");
-        document.getElementById("certificateName").value = student.name;
-      } else {
-        document.getElementById("remarkLine").textContent = "You did not pass. Keep practicing.";
-        certificateBox.classList.add("hidden");
-        document.getElementById("certificateName").value = "";
-      }
-
-      renderStudentStats();
-    }
-
-    function cancelQuiz() {
-      clearInterval(timer);
-      backToStudentHome();
-    }
-
-    function restartExamFlow() {
-      backToStudentHome();
-    }
-
-    function backToStudentHome() {
-      document.getElementById("quizSection").classList.add("hidden");
-      document.getElementById("resultSection").classList.add("hidden");
-      document.getElementById("studentResultsSection").classList.add("hidden");
-      document.getElementById("studentDashboard").classList.remove("hidden");
-      document.getElementById("studentHome").classList.remove("hidden");
-      renderStudentStats();
-    }
-
-    function showStudentResults() {
-      const student = getCurrentStudent();
-      const results = getResults().filter(item => item.studentEmail === student.email);
-
-      let html = "";
-      if (results.length === 0) {
-        html = "<p>No results yet.</p>";
-      } else {
-        html = `
-          <table>
-            <thead>
-              <tr>
-                <th>Subject</th>
-                <th>Score</th>
-                <th>Percentage</th>
-                <th>Date</th>
-              </tr>
-            </thead>
-            <tbody>
-        `;
-
-        results.forEach(item => {
-          html += `
-            <tr>
-              <td>${item.subject}</td>
-              <td>${item.score}/${item.total}</td>
-              <td>${item.percentage}%</td>
-              <td>${item.date}</td>
-            </tr>
-          `;
-        });
-
-        html += "</tbody></table>";
-      }
-
-      document.getElementById("studentResultsTableWrap").innerHTML = html;
-      document.getElementById("studentDashboard").classList.add("hidden");
-      document.getElementById("studentHome").classList.add("hidden");
-      document.getElementById("quizSection").classList.add("hidden");
-      document.getElementById("resultSection").classList.add("hidden");
-      document.getElementById("studentResultsSection").classList.remove("hidden");
     }
 
     function updateProgress() {
-      const percent = currentQuestions.length
-        ? (currentQuestionIndex / currentQuestions.length) * 100
-        : 0;
+      const answered = answers.filter(a => a !== null).length;
+      const percent = (answered / activeQuestions.length) * 100;
       document.getElementById("progressBar").style.width = percent + "%";
     }
 
     function startTimer() {
       clearInterval(timer);
-      document.getElementById("timeLeft").textContent = timeLeft;
+      updateTimerDisplay();
 
       timer = setInterval(() => {
-        timeLeft--;
-        document.getElementById("timeLeft").textContent = timeLeft;
+        timeRemaining--;
+        updateTimerDisplay();
 
-        if (timeLeft <= 0) {
+        if (timeRemaining <= 0) {
           clearInterval(timer);
-          alert("Time is up!");
-          submitQuiz();
+          submitExam();
         }
       }, 1000);
     }
 
-    function downloadCertificate() {
-      const name = document.getElementById("certificateName").value.trim();
-      if (!name) {
-        alert("Please enter your name first.");
-        return;
-      }
-
-      const percentage = currentQuestions.length
-        ? Math.round((score / currentQuestions.length) * 100)
-        : 0;
-
-      if (percentage < 50) {
-        alert("Certificate is only available for students who passed.");
-        return;
-      }
-
-      const canvas = document.getElementById("certificateCanvas");
-      const ctx = canvas.getContext("2d");
-
-      ctx.fillStyle = "#ffffff";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      ctx.strokeStyle = "#174a7c";
-      ctx.lineWidth = 8;
-      ctx.strokeRect(30, 30, canvas.width - 60, canvas.height - 60);
-
-      ctx.fillStyle = "#174a7c";
-      ctx.textAlign = "center";
-
-      ctx.font = "bold 46px Georgia";
-      ctx.fillText("Certificate of Achievement", canvas.width / 2, 120);
-
-      ctx.font = "26px Arial";
-      ctx.fillStyle = "#333";
-      ctx.fillText("This is to certify that", canvas.width / 2, 200);
-
-      ctx.font = "bold 40px Arial";
-      ctx.fillStyle = "#000";
-      ctx.fillText(name, canvas.width / 2, 270);
-
-      ctx.font = "24px Arial";
-      ctx.fillStyle = "#333";
-      ctx.fillText(`has successfully passed the ${currentQuizSubject} examination`, canvas.width / 2, 340);
-      ctx.fillText(`Score: ${score} / ${currentQuestions.length} (${percentage}%)`, canvas.width / 2, 385);
-
-      ctx.font = "20px Arial";
-      ctx.fillText("Rural Exam Boost", canvas.width / 2, 470);
-      ctx.fillText(new Date().toLocaleDateString(), canvas.width / 2, 510);
-
-      const link = document.createElement("a");
-      link.download = `${currentQuizSubject}_Pass_Certificate.png`;
-      link.href = canvas.toDataURL("image/png");
-      link.click();
+    function updateTimerDisplay() {
+      const mins = Math.floor(timeRemaining / 60);
+      const secs = timeRemaining % 60;
+      document.getElementById("timeLeft").textContent =
+        `${String(mins).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
     }
 
-    function renderAdminDashboard() {
-      const subjects = getSubjects();
-      const questions = getQuestions();
-      const results = getResults();
-      const students = getStudents();
+    function submitExam() {
+      clearInterval(timer);
 
-      let totalQuestions = 0;
-      subjects.forEach(subject => {
-        totalQuestions += (questions[subject] || []).length;
+      let score = 0;
+      activeQuestions.forEach((q, index) => {
+        if (answers[index] === q.answer) score++;
       });
 
-      document.getElementById("dashboardStats").innerHTML = `
-        <div class="stat-box"><h4>Subjects</h4><p>${subjects.length}</p></div>
-        <div class="stat-box"><h4>Questions</h4><p>${totalQuestions}</p></div>
-        <div class="stat-box"><h4>Students</h4><p>${students.length}</p></div>
-        <div class="stat-box"><h4>Results</h4><p>${results.length}</p></div>
-      `;
+      const percent = Math.round((score / activeQuestions.length) * 100);
+
+      let remark = "Needs more practice";
+      if (percent >= 80) remark = "Excellent";
+      else if (percent >= 60) remark = "Very Good";
+      else if (percent >= 50) remark = "Good";
+
+      document.getElementById("examScreen").classList.add("hidden");
+      document.getElementById("resultScreen").classList.remove("hidden");
+
+      document.getElementById("resultName").textContent = student;
+      document.getElementById("resultSubject").textContent = formatSubject(subject);
+      document.getElementById("resultScore").textContent = `${score} / ${activeQuestions.length}`;
+      document.getElementById("resultPercent").textContent = `${percent}%`;
+      document.getElementById("resultRemark").textContent = remark;
     }
 
-    function addSubject() {
-      const input = document.getElementById("newSubjectName");
-      const newSubject = input.value.trim();
+    function restartExam() {
+      clearInterval(timer);
+      document.getElementById("studentName").value = "";
+      document.getElementById("subjectSelect").value = "";
+      document.getElementById("setupScreen").classList.remove("hidden");
+      document.getElementById("examScreen").classList.add("hidden");
+      document.getElementById("resultScreen").classList.add("hidden");
+    }
 
-      if (!newSubject) {
-        alert("Enter a subject name.");
-        return;
+    function shuffleArray(arr) {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
       }
-
-      const subjects = getSubjects();
-      const questions = getQuestions();
-
-      if (subjects.includes(newSubject)) {
-        alert("Subject already exists.");
-        return;
-      }
-
-      subjects.push(newSubject);
-      questions[newSubject] = [];
-
-      saveSubjects(subjects);
-      saveQuestions(questions);
-
-      input.value = "";
-      renderSubjectBadges();
-      populateAdminSubjectSelect();
-      renderStudentSubjects();
-      renderAdminDashboard();
+      return arr;
     }
-
-    function renderSubjectBadges() {
-      const wrap = document.getElementById("subjectBadges");
-      wrap.innerHTML = "";
-
-      getSubjects().forEach(subject => {
-        const div = document.createElement("div");
-        div.className = "question-item";
-        div.innerHTML = `
-          <p><strong>${subject}</strong></p>
-          <button class="btn-red" onclick="deleteSubject('${subject.replace(/'/g, "\\'")}')">Delete Subject</button>
-        `;
-        wrap.appendChild(div);
-      });
-    }
-
-    function deleteSubject(subject) {
-      if (!confirm(`Delete ${subject} and all its questions?`)) return;
-
-      let subjects = getSubjects();
-      let questions = getQuestions();
-
-      subjects = subjects.filter(item => item !== subject);
-      delete questions[subject];
-
-      saveSubjects(subjects);
-      saveQuestions(questions);
-
-      renderSubjectBadges();
-      populateAdminSubjectSelect();
-      renderAdminQuestions();
-      renderStudentSubjects();
-      renderAdminDashboard();
-    }
-
-    function populateAdminSubjectSelect() {
-      const select = document.getElementById("adminQuestionSubject");
-      const current = select.value;
-      select.innerHTML = "";
-
-      getSubjects().forEach(subject => {
-        const option = document.createElement("option");
-        option.value = subject;
-        option.textContent = subject;
-        select.appendChild(option);
-      });
-
-      if (getSubjects().includes(current)) {
-        select.value = current;
-      }
-
-      updateCorrectAnswerSelect();
-    }
-
-    function updateCorrectAnswerSelect() {
-      const values = [
-        document.getElementById("optionA").value.trim(),
-        document.getElementById("optionB").value.trim(),
-        document.getElementById("optionC").value.trim(),
-        document.getElementById("optionD").value.trim()
-      ].filter(Boolean);
-
-      const select = document.getElementById("correctAnswer");
-      const oldValue = select.value;
-      select.innerHTML = `<option value="">Select correct answer</option>`;
-
-      values.forEach(value => {
-        const option = document.createElement("option");
-        option.value = value;
-        option.textContent = value;
-        select.appendChild(option);
-      });
-
-      if (values.includes(oldValue)) {
-        select.value = oldValue;
-      }
-    }
-
-    function saveQuestion() {
-      const subject = document.getElementById("adminQuestionSubject").value;
-      const question = document.getElementById("questionInput").value.trim();
-      const optionA = document.getElementById("optionA").value.trim();
-      const optionB = document.getElementById("optionB").value.trim();
-      const optionC = document.getElementById("optionC").value.trim();
-      const optionD = document.getElementById("optionD").value.trim();
-      const answer = document.getElementById("correctAnswer").value.trim();
-
-      if (!subject || !question || !optionA || !optionB || !optionC || !optionD || !answer) {
-        alert("Please complete all fields.");
-        return;
-      }
-
-      const questions = getQuestions();
-      const payload = {
-        question,
-        options: [optionA, optionB, optionC, optionD],
-        answer
-      };
-
-      if (!questions[subject]) questions[subject] = [];
-
-      if (editIndex === null) {
-        questions[subject].push(payload);
-      } else {
-        questions[subject][editIndex] = payload;
-      }
-
-      saveQuestions(questions);
-      clearQuestionForm();
-      renderAdminQuestions();
-      renderAdminDashboard();
-    }
-
-    function renderAdminQuestions() {
-      const subject = document.getElementById("adminQuestionSubject").value;
-      const wrap = document.getElementById("adminQuestionsList");
-      const questions = getQuestions();
-      const subjectQuestions = questions[subject] || [];
-      wrap.innerHTML = "";
-
-      if (!subject) {
-        wrap.innerHTML = "<p>No subject selected.</p>";
-        return;
-      }
-
-      if (subjectQuestions.length === 0) {
-        wrap.innerHTML = "<p>No questions added yet.</p>";
-        return;
-      }
-
-      subjectQuestions.forEach((item, index) => {
-        const div = document.createElement("div");
-        div.className = "question-item";
-        div.innerHTML = `
-          <p><strong>Q:</strong> ${item.question}</p>
-          <p>A. ${item.options[0]}</p>
-          <p>B. ${item.options[1]}</p>
-          <p>C. ${item.options[2]}</p>
-          <p>D. ${item.options[3]}</p>
-          <p><strong>Answer:</strong> ${item.answer}</p>
-          <button onclick="editQuestion(${index})">Edit</button>
-          <button class="btn-red btn-block" onclick="deleteQuestion(${index})">Delete</button>
-        `;
-        wrap.appendChild(div);
-      });
-    }
-
-    function editQuestion(index) {
-      const subject = document.getElementById("adminQuestionSubject").value;
-      const item = (getQuestions()[subject] || [])[index];
-      if (!item) return;
-
-      editIndex = index;
-      document.getElementById("questionInput").value = item.question;
-      document.getElementById("optionA").value = item.options[0];
-      document.getElementById("optionB").value = item.options[1];
-      document.getElementById("optionC").value = item.options[2];
-      document.getElementById("optionD").value = item.options[3];
-      updateCorrectAnswerSelect();
-      document.getElementById("correctAnswer").value = item.answer;
-      document.getElementById("cancelEditBtn").classList.remove("hidden");
-    }
-
-    function cancelEdit() {
-      clearQuestionForm();
-    }
-
-    function clearQuestionForm() {
-      editIndex = null;
-      document.getElementById("questionInput").value = "";
-      document.getElementById("optionA").value = "";
-      document.getElementById("optionB").value = "";
-      document.getElementById("optionC").value = "";
-      document.getElementById("optionD").value = "";
-      updateCorrectAnswerSelect();
-      document.getElementById("correctAnswer").value = "";
-      document.getElementById("cancelEditBtn").classList.add("hidden");
-    }
-
-    function deleteQuestion(index) {
-      const subject = document.getElementById("adminQuestionSubject").value;
-      const questions = getQuestions();
-
-      if (!confirm("Delete this question?")) return;
-
-      questions[subject].splice(index, 1);
-      saveQuestions(questions);
-      renderAdminQuestions();
-      renderAdminDashboard();
-    }
-
-    function renderStudentsTable() {
-      const students = getStudents();
-      const wrap = document.getElementById("studentsTableWrap");
-
-      if (students.length === 0) {
-        wrap.innerHTML = "<p>No registered students yet.</p>";
-        return;
-      }
-
-      let html = `
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Date Joined</th>
-            </tr>
-          </thead>
-          <tbody>
-      `;
-
-      students.forEach(student => {
-        html += `
-          <tr>
-            <td>${student.name}</td>
-            <td>${student.email}</td>
-            <td>${student.dateJoined}</td>
-          </tr>
-        `;
-      });
-
-      html += `</tbody></table>`;
-      wrap.innerHTML = html;
-    }
-
-    function renderResultsTable() {
-      const results = getResults();
-      const wrap = document.getElementById("resultsTableWrap");
-
-      if (results.length === 0) {
-        wrap.innerHTML = "<p>No student results yet.</p>";
-        return;
-      }
-
-      let html = `
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Subject</th>
-              <th>Score</th>
-              <th>Percent</th>
-              <th>Date</th>
-            </tr>
-          </thead>
-          <tbody>
-      `;
-
-      results.forEach(item => {
-        html += `
-          <tr>
-            <td>${item.studentName}</td>
-            <td>${item.studentEmail}</td>
-            <td>${item.subject}</td>
-            <td>${item.score}/${item.total}</td>
-            <td>${item.percentage}%</td>
-            <td>${item.date}</td>
-          </tr>
-        `;
-      });
-
-      html += `</tbody></table>`;
-      wrap.innerHTML = html;
-    }
-
-    document.addEventListener("input", function(e) {
-      if (["optionA", "optionB", "optionC", "optionD"].includes(e.target.id)) {
-        updateCorrectAnswerSelect();
-      }
-    });
-
-    seedData();
   </script>
 </body>
 </html>
