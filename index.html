@@ -3,70 +3,136 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>RuralExamBoost</title>
+  <title>RuralExamBoost Pro</title>
   <style>
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       font-family: Arial, sans-serif;
       background: #f4f7fb;
       color: #1f2937;
     }
-    .hidden { display: none !important; }
+
+    .hidden {
+      display: none !important;
+    }
+
     .container {
-      max-width: 980px;
+      max-width: 1100px;
       margin: 24px auto;
       padding: 16px;
     }
+
     .header {
       background: linear-gradient(135deg, #1f4e79, #2f6fa8);
-      color: white;
-      padding: 20px;
-      border-radius: 16px;
+      color: #fff;
+      padding: 22px;
+      border-radius: 18px;
       margin-bottom: 18px;
     }
+
+    .header h1,
+    .header h2 {
+      margin: 0 0 8px;
+    }
+
     .card {
-      background: white;
+      background: #fff;
       border-radius: 16px;
-      padding: 18px;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+      padding: 20px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
       margin-bottom: 18px;
     }
-    h1,h2,h3,h4,p { margin-top: 0; }
-    input, select, textarea {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid #d5dde7;
-      border-radius: 10px;
-      margin: 8px 0 12px;
-      font-size: 15px;
+
+    h2, h3, h4, p {
+      margin-top: 0;
     }
-    button {
-      width: 100%;
-      padding: 12px;
-      border: none;
-      border-radius: 10px;
-      background: #1f4e79;
-      color: white;
-      font-size: 15px;
-      cursor: pointer;
-      margin-top: 8px;
-    }
-    button:hover { opacity: 0.95; }
-    .btn-green { background: #198754; }
-    .btn-gray { background: #6c757d; }
-    .btn-red { background: #dc3545; }
-    .btn-orange { background: #fd7e14; }
+
     .grid {
       display: grid;
       gap: 16px;
     }
+
     .grid-2 {
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     }
+
     .grid-3 {
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     }
+
+    .stat {
+      background: #f7fbff;
+      border: 1px solid #d9e6f3;
+      border-radius: 14px;
+      padding: 16px;
+    }
+
+    .stat h4 {
+      margin-bottom: 8px;
+      color: #1f4e79;
+      font-size: 14px;
+    }
+
+    .stat p {
+      margin: 0;
+      font-size: 26px;
+      font-weight: bold;
+    }
+
+    input, select, textarea, button {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      font-size: 15px;
+      margin-top: 8px;
+      margin-bottom: 12px;
+    }
+
+    input, select, textarea {
+      border: 1px solid #d5dde7;
+      background: #fff;
+    }
+
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    button {
+      border: none;
+      background: #1f4e79;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.95;
+    }
+
+    .btn-green {
+      background: #198754;
+    }
+
+    .btn-gray {
+      background: #6c757d;
+    }
+
+    .btn-red {
+      background: #dc3545;
+    }
+
+    .btn-orange {
+      background: #fd7e14;
+    }
+
+    .btn-dark {
+      background: #111827;
+    }
+
     .topbar {
       display: flex;
       justify-content: space-between;
@@ -76,6 +142,7 @@
       margin-bottom: 12px;
       font-size: 14px;
     }
+
     .progress-wrap {
       width: 100%;
       height: 10px;
@@ -84,28 +151,33 @@
       overflow: hidden;
       margin: 12px 0 18px;
     }
+
     .progress {
       height: 100%;
       width: 0%;
       background: #198754;
       transition: width 0.3s ease;
     }
+
     .option {
       background: #eef3f8;
       color: #111827;
       border: 1px solid #d7e0ea;
       text-align: left;
     }
+
     .option.selected {
       background: #1f4e79;
-      color: white;
+      color: #fff;
     }
+
     .palette {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(46px, 1fr));
       gap: 8px;
       margin-top: 14px;
     }
+
     .palette button {
       margin: 0;
       padding: 10px;
@@ -113,47 +185,102 @@
       color: #111827;
       font-weight: bold;
     }
+
     .palette button.answered {
       background: #198754;
-      color: white;
+      color: #fff;
     }
+
     .palette button.current {
       outline: 3px solid #1f4e79;
     }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 10px;
+
+    .palette button.unanswered {
+      background: #f8d7da;
+      color: #842029;
     }
-    th, td {
-      border: 1px solid #e1e6ee;
-      padding: 10px;
-      text-align: left;
-      font-size: 14px;
-    }
-    th { background: #f1f5fa; }
-    .stat {
-      background: #f7fbff;
-      border: 1px solid #d9e6f3;
-      border-radius: 14px;
-      padding: 16px;
-    }
-    .stat h4 {
-      margin-bottom: 8px;
-      color: #1f4e79;
-      font-size: 14px;
-    }
-    .stat p {
-      margin: 0;
-      font-size: 26px;
-      font-weight: bold;
-    }
+
     .row-actions {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 10px;
     }
-    canvas { display: none; }
+
+    .row-actions-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      background: #fff;
+    }
+
+    th, td {
+      border: 1px solid #e1e6ee;
+      padding: 10px;
+      text-align: left;
+      font-size: 14px;
+      vertical-align: top;
+    }
+
+    th {
+      background: #f1f5fa;
+    }
+
+    .review-item {
+      border: 1px solid #e1e6ee;
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 12px;
+      background: #fafbfd;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: bold;
+      margin-top: 8px;
+    }
+
+    .badge-good {
+      background: #d1e7dd;
+      color: #0f5132;
+    }
+
+    .badge-bad {
+      background: #f8d7da;
+      color: #842029;
+    }
+
+    .mini {
+      font-size: 13px;
+      color: #6b7280;
+    }
+
+    .question-box {
+      border: 1px solid #dce5ef;
+      border-radius: 12px;
+      padding: 14px;
+      background: #fcfdff;
+      margin-bottom: 12px;
+    }
+
+    canvas {
+      display: none;
+    }
+
+    @media (max-width: 640px) {
+      .row-actions,
+      .row-actions-2 {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 <body>
@@ -168,7 +295,7 @@
       <div class="grid grid-2">
         <div class="card">
           <h3>Student Portal</h3>
-          <p>Register or login to take CBT exams, track results, and download certificates.</p>
+          <p>Register or login to take CBT exams, track results, and download your slip or certificate.</p>
           <button onclick="showPage('studentAuthPage')">Open Student Portal</button>
         </div>
         <div class="card">
@@ -206,8 +333,9 @@
       <div class="card">
         <div class="topbar">
           <div><strong>Student:</strong> <span id="studentWelcome"></span></div>
-          <button class="btn-red" style="width:auto;padding:10px 16px;" onclick="logoutStudent()">Logout</button>
+          <button class="btn-red" style="width:auto;padding:10px 16px;margin:0;" onclick="logoutStudent()">Logout</button>
         </div>
+
         <div class="grid grid-3">
           <div class="stat"><h4>Total Exams</h4><p id="statExams">0</p></div>
           <div class="stat"><h4>Average Score</h4><p id="statAverage">0%</p></div>
@@ -220,6 +348,7 @@
           <h3>Select Subject</h3>
           <div id="subjectButtons"></div>
         </div>
+
         <div class="card">
           <h3>My Results</h3>
           <div id="studentResultsTable"></div>
@@ -233,6 +362,7 @@
         <div class="topbar">
           <div><strong>Subject:</strong> <span id="examSubject"></span></div>
           <div><strong>Question:</strong> <span id="questionCounter"></span></div>
+          <div><strong>Answered:</strong> <span id="answeredCounter">0</span></div>
           <div><strong>Time Left:</strong> <span id="timeLeft">00:00</span></div>
         </div>
 
@@ -246,10 +376,29 @@
         <div class="row-actions">
           <button class="btn-gray" onclick="prevQuestion()">Previous</button>
           <button class="btn-orange" onclick="nextQuestion()">Next</button>
-          <button class="btn-green" onclick="submitExam()">Submit</button>
+          <button class="btn-green" onclick="goToReviewPage()">Review</button>
         </div>
 
         <div class="palette" id="questionPalette"></div>
+      </div>
+    </div>
+
+    <!-- REVIEW PAGE -->
+    <div id="reviewPage" class="hidden">
+      <div class="card">
+        <h2>Review Answers</h2>
+        <p class="mini">
+          Check your answers before final submission.
+          <strong>Answered:</strong> <span id="reviewAnsweredCount">0</span> /
+          <span id="reviewTotalCount">0</span>
+        </p>
+
+        <div id="reviewList"></div>
+
+        <div class="row-actions-2">
+          <button class="btn-gray" onclick="showPage('examPage')">Back to Exam</button>
+          <button class="btn-green" onclick="submitExam()">Final Submit</button>
+        </div>
       </div>
     </div>
 
@@ -267,9 +416,11 @@
           <button onclick="downloadCertificate()">Download Certificate</button>
         </div>
 
+        <button class="btn-dark" onclick="downloadResultSlip()">Download Result Slip</button>
         <button class="btn-green" onclick="goToStudentDashboard()">Back to Dashboard</button>
       </div>
       <canvas id="certificateCanvas" width="1000" height="600"></canvas>
+      <canvas id="resultSlipCanvas" width="1000" height="800"></canvas>
     </div>
 
     <!-- ADMIN LOGIN -->
@@ -289,8 +440,9 @@
       <div class="card">
         <div class="topbar">
           <div><strong>Admin Dashboard</strong></div>
-          <button class="btn-red" style="width:auto;padding:10px 16px;" onclick="logoutAdmin()">Logout</button>
+          <button class="btn-red" style="width:auto;padding:10px 16px;margin:0;" onclick="logoutAdmin()">Logout</button>
         </div>
+
         <div class="grid grid-3">
           <div class="stat"><h4>Subjects</h4><p id="adminSubjectsCount">0</p></div>
           <div class="stat"><h4>Questions</h4><p id="adminQuestionsCount">0</p></div>
@@ -334,11 +486,11 @@
   </div>
 
   <script>
-    const STUDENTS_KEY = "reb_students_clean";
-    const CURRENT_STUDENT_KEY = "reb_current_student_clean";
-    const SUBJECTS_KEY = "reb_subjects_clean";
-    const QUESTIONS_KEY = "reb_questions_clean";
-    const RESULTS_KEY = "reb_results_clean";
+    const STUDENTS_KEY = "reb_students_clean_v2";
+    const CURRENT_STUDENT_KEY = "reb_current_student_clean_v2";
+    const SUBJECTS_KEY = "reb_subjects_clean_v2";
+    const QUESTIONS_KEY = "reb_questions_clean_v2";
+    const RESULTS_KEY = "reb_results_clean_v2";
 
     const ADMIN_USER = "admin";
     const ADMIN_PASS = "admin123";
@@ -378,6 +530,11 @@
               question: "Choose the antonym of 'scarcity'.",
               options: ["Shortage", "Need", "Abundance", "Lack"],
               answer: "Abundance"
+            },
+            {
+              question: "Choose the word nearest in meaning to 'lucid'.",
+              options: ["Confusing", "Clear", "Harsh", "Long"],
+              answer: "Clear"
             }
           ],
           "Mathematics": [
@@ -390,6 +547,11 @@
               question: "Find the area of a triangle with base 10cm and height 8cm.",
               options: ["18 cm²", "40 cm²", "80 cm²", "20 cm²"],
               answer: "40 cm²"
+            },
+            {
+              question: "The square root of 81 is?",
+              options: ["7", "8", "9", "10"],
+              answer: "9"
             }
           ],
           "Biology": [
@@ -402,6 +564,11 @@
               question: "The organ responsible for filtering blood is the?",
               options: ["Heart", "Liver", "Kidney", "Lung"],
               answer: "Kidney"
+            },
+            {
+              question: "The basic unit of life is the?",
+              options: ["Cell", "Tissue", "Organ", "Nucleus"],
+              answer: "Cell"
             }
           ]
         }));
@@ -466,6 +633,7 @@
         "studentAuthPage",
         "studentDashboardPage",
         "examPage",
+        "reviewPage",
         "resultPage",
         "adminLoginPage",
         "adminDashboardPage"
@@ -476,6 +644,7 @@
       document.getElementById(pageId).classList.remove("hidden");
 
       if (pageId === "studentDashboardPage") renderStudentDashboard();
+      if (pageId === "reviewPage") renderReviewPage();
       if (pageId === "adminDashboardPage") renderAdminDashboard();
     }
 
@@ -673,6 +842,7 @@
         const btn = document.createElement("button");
         btn.textContent = index + 1;
         if (selectedAnswers[index] !== null) btn.classList.add("answered");
+        if (selectedAnswers[index] === null) btn.classList.add("unanswered");
         if (index === currentQuestionIndex) btn.classList.add("current");
         btn.onclick = () => {
           currentQuestionIndex = index;
@@ -683,9 +853,10 @@
     }
 
     function updateProgress() {
-      const answered = selectedAnswers.filter(Boolean).length;
+      const answered = selectedAnswers.filter(answer => answer !== null).length;
       const percent = (answered / currentQuestions.length) * 100;
       document.getElementById("progressBar").style.width = percent + "%";
+      document.getElementById("answeredCounter").textContent = answered;
     }
 
     function nextQuestion() {
@@ -700,6 +871,41 @@
         currentQuestionIndex--;
         renderExamQuestion();
       }
+    }
+
+    function goToReviewPage() {
+      showPage("reviewPage");
+    }
+
+    function renderReviewPage() {
+      const wrap = document.getElementById("reviewList");
+      const answered = selectedAnswers.filter(answer => answer !== null).length;
+
+      document.getElementById("reviewAnsweredCount").textContent = answered;
+      document.getElementById("reviewTotalCount").textContent = currentQuestions.length;
+
+      let html = "";
+      currentQuestions.forEach((q, index) => {
+        const answer = selectedAnswers[index];
+        html += `
+          <div class="review-item">
+            <p><strong>Question ${index + 1}:</strong> ${q.question}</p>
+            <p><strong>Your Answer:</strong> ${answer || "Not answered"}</p>
+            <span class="badge ${answer ? "badge-good" : "badge-bad"}">
+              ${answer ? "Answered" : "Unanswered"}
+            </span>
+            <button style="margin-top:12px;" class="btn-gray" onclick="jumpToQuestion(${index})">Edit Answer</button>
+          </div>
+        `;
+      });
+
+      wrap.innerHTML = html;
+    }
+
+    function jumpToQuestion(index) {
+      currentQuestionIndex = index;
+      showPage("examPage");
+      renderExamQuestion();
     }
 
     function startTimer() {
@@ -752,6 +958,7 @@
         total: currentQuestions.length,
         percentage,
         remark,
+        answers: selectedAnswers,
         date: new Date().toISOString()
       };
 
@@ -821,6 +1028,71 @@
       link.click();
     }
 
+    function downloadResultSlip() {
+      if (!latestResult) {
+        alert("No result available.");
+        return;
+      }
+
+      const canvas = document.getElementById("resultSlipCanvas");
+      const ctx = canvas.getContext("2d");
+
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = "#1f4e79";
+      ctx.font = "bold 42px Arial";
+      ctx.textAlign = "center";
+      ctx.fillText("RuralExamBoost Result Slip", canvas.width / 2, 70);
+
+      ctx.textAlign = "left";
+      ctx.fillStyle = "#111827";
+      ctx.font = "24px Arial";
+      ctx.fillText(`Student Name: ${latestResult.studentName}`, 60, 140);
+      ctx.fillText(`Subject: ${latestResult.subject}`, 60, 185);
+      ctx.fillText(`Score: ${latestResult.score}/${latestResult.total}`, 60, 230);
+      ctx.fillText(`Percentage: ${latestResult.percentage}%`, 60, 275);
+      ctx.fillText(`Remark: ${latestResult.remark}`, 60, 320);
+      ctx.fillText(`Date: ${new Date(latestResult.date).toLocaleString()}`, 60, 365);
+
+      ctx.strokeStyle = "#d1d5db";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(60, 395);
+      ctx.lineTo(940, 395);
+      ctx.stroke();
+
+      ctx.fillStyle = "#1f2937";
+      ctx.font = "bold 26px Arial";
+      ctx.fillText("Answer Summary", 60, 440);
+
+      ctx.font = "20px Arial";
+      let y = 485;
+
+      currentQuestions.forEach((q, index) => {
+        const yourAnswer = latestResult.answers[index] || "Not answered";
+        const correctAnswer = q.answer;
+        const isCorrect = yourAnswer === correctAnswer;
+
+        ctx.fillStyle = isCorrect ? "#198754" : "#dc3545";
+        ctx.fillText(
+          `Q${index + 1}: ${isCorrect ? "Correct" : "Wrong"} | Your answer: ${yourAnswer} | Correct: ${correctAnswer}`,
+          60,
+          y
+        );
+        y += 40;
+
+        if (y > 740) {
+          y = 740;
+        }
+      });
+
+      const link = document.createElement("a");
+      link.download = `${latestResult.subject}_Result_Slip.png`;
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+    }
+
     function loginAdmin() {
       const username = document.getElementById("adminUsername").value.trim();
       const password = document.getElementById("adminPassword").value.trim();
@@ -842,13 +1114,17 @@
     function addSubject() {
       const input = document.getElementById("newSubjectName");
       const subject = input.value.trim();
-      if (!subject) return alert("Enter a subject name.");
+      if (!subject) {
+        alert("Enter a subject name.");
+        return;
+      }
 
       const subjects = getSubjects();
       const questions = getQuestions();
 
       if (subjects.includes(subject)) {
-        return alert("Subject already exists.");
+        alert("Subject already exists.");
+        return;
       }
 
       subjects.push(subject);
@@ -932,7 +1208,8 @@
       const answer = document.getElementById("correctAnswerSelect").value.trim();
 
       if (!subject || !question || !optionA || !optionB || !optionC || !optionD || !answer) {
-        return alert("Please complete all fields.");
+        alert("Please complete all fields.");
+        return;
       }
 
       const questions = getQuestions();
@@ -969,7 +1246,7 @@
         } else {
           items.forEach((q, index) => {
             html += `
-              <div class="card" style="padding:12px;margin-bottom:10px;">
+              <div class="question-box">
                 <p><strong>Q${index + 1}:</strong> ${q.question}</p>
                 <p>A. ${q.options[0]}</p>
                 <p>B. ${q.options[1]}</p>
